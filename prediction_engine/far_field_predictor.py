@@ -1,7 +1,6 @@
 import pandas as pd
-from sklearn.metrics import mean_absolute_error
 from sklearn.model_selection import train_test_split
-from sklearn.peprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
 from matplotlib.colors import ListedColormap
 import matplotlib.pyplot as plt
@@ -63,7 +62,7 @@ def main():
                                                         stratify=y)
 
     sc = StandardScaler()
-    svm = SVC(kenel='linear', C=1.0, random_state=1)
+    svm = SVC(kernel='linear', C=1.0, random_state=1)
 
     # Estimate the mean and standard deviation of each feature
     sc.fit(X_train)
@@ -72,8 +71,8 @@ def main():
     X_train_std = sc.transform(X_train)
     X_test_std = sc.transform(X_test)
 
-    X_combined_std = np.vstack((X_train_std, X_test_std))
-    y_combined = np.hstack((y_train, y_test))
+    # X_combined_std = np.vstack((X_train_std, X_test_std))
+    # y_combined = np.hstack((y_train, y_test))
 
     svm.fit(X_train_std, y_train)
 
@@ -89,12 +88,15 @@ def main():
     # Show the test accuracy
     print('Test accuracy: {}'.format(svm.score(X_test_std, y_test)))
 
-    plot_decision_regions(X_combined_std,
-                          y_combined,
-                          svm,
-                          range(105, 150))
+    # plot_decision_regions(X_combined_std,
+    #                       y_combined,
+    #                       svm,
+    #                       range(105, 150))
 
-    plt.xlabel('Biomedical Indicators')
-    plt.ylabel('Outcome')
-    plt.legend(loc='upper left')
-    plt.show()
+    # plt.xlabel('Biomedical Indicators')
+    # plt.ylabel('Outcome')
+    # plt.legend(loc='upper left')
+    # plt.show()
+
+
+main()
