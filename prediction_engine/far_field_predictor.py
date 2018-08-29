@@ -45,15 +45,56 @@ def plot_decision_regions(X, y, classifier, test_idx=None,
                     s=100, label='Test Set')
 
 
-diabetes_data = pd.read_csv('../Diabetes-Data/diabetes.csv')
-y = diabetes_data.Outcome
-X = diabetes_data.drop(['Outcome'], axis=1)
-
-X_train, X_test, y_train, y_test = train_test_split(X,
-                                                    y, train_size=0.7,
-                                                    test_size=0.3,
-                                                    random_state=0)
-
-svm = SVC(kenel='linear', C=1.0, random_state=1)
+def load_data(path):
+    diabetes_data = pd.read_csv(path)
+    y = diabetes_data.Outcome
+    X = diabetes_data.drop(['Outcome'], axis=1)
+    return X, y
 
 
+def main():
+    X, y = load_data('../Diabetes-Data/diabetes.csv')
+
+    # Split the data 30% test and 70% train, stratify for proporion
+    X_train, X_test, y_train, y_test = train_test_split(X,
+                                                        y, train_size=0.7,
+                                                        test_size=0.3,
+                                                        random_state=0,
+                                                        stratify=y)
+
+    sc = StandardScaler()
+    svm = SVC(kenel='linear', C=1.0, random_state=1)
+
+    # Estimate the mean and standard deviation of each feature
+    sc.fit(X_train)
+
+    # Standardize the inputs
+    X_train_std = sc.transform(X_train)
+    X_test_std = sc.transform(X_test)
+
+    X_combined_std = np.vstack((X_train_std, X_test_std))
+    y_combined = np.hstack((y_train, y_test))
+
+    svm.fit(X_train_std, y_train)
+
+    # Make predictions about the standardized input
+    y_pred = svm.predict(X_test_std)
+
+    # Predict the accuracy of the predictions and misclassifications
+    print('Misclassified samples: {}'.format((y_test != y_pred).sum()))
+
+    # Find accuracy of the results
+    print('Accuracy of results: {}'.format(accuracy_score(y_test, y_pred)))
+
+    # Show the test accuracy
+    print('Test accuracy: {}'.format(svm.score(X_test_std, y_test)))
+
+    plot_decision_regions(X_combined_std,
+                          y_combined,
+                          svm,
+                          range(105, 150))
+
+    plt.xlabel('Biomedical Indicators')
+    plt.ylabel('Outcome')
+    plt.legend(loc='upper left')
+    plt.show()
