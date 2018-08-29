@@ -37,7 +37,7 @@ def plot_decision_regions(X, y, classifier, test_idx=None,
     # Highlight test samples
     if test_idx:
         # Plot all samples
-        X_test, y_test = X[test_idx, :], y[test_idx]
+        X_test = X[test_idx, :]
 
         plt.scatter(X_test[:, 0], X_test[:, 1],
                     c='', edgecolor='black', alpha=1.0,
