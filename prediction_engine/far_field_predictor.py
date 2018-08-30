@@ -6,10 +6,38 @@ from matplotlib.colors import ListedColormap
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.svm import SVC
+import datetime
+
+
+def log_results(stats):
+    """
+    Takes an output tuple of
+    values and logs each to a
+    file with some formatting
+    """
+    now = datetime.datetime.now()
+
+    logfile = open('runs.txt', 'a')
+    logfile.write('\nRun time: {}'.format(str(now)))
+
+    for output in stats:
+        formatted_text = '''
+        Results Accuracy: {}
+        Misclassified Samples: {}
+        Training Accuracy: {}
+        Test Accuracy: {}
+        '''.format(output[0], output[1], output[2], output[3])
+
+        logfile.write(formatted_text)
 
 
 def plot_decision_regions(X, y, classifier, test_idx=None,
                           resolution=0.02):
+    """
+    Makes a color coded plot of whatever
+    learning model you inject
+    """
+
     # Marker generator and color map
     markers = ('s', 'x', 'o', '^', 'v')
     colors = ('red', 'blue', 'lightgreen', 'gray', 'cyan')
@@ -50,14 +78,13 @@ def load_data(path):
     return X, y
 
 
-def main():
+def classify():
     X, y = load_data('../Diabetes-Data/diabetes.csv')
 
     # Split the data 30% test and 70% train, stratify for proporion
     X_train, X_test, y_train, y_test = train_test_split(X,
                                                         y, train_size=0.7,
                                                         test_size=0.3,
-                                                        random_state=0,
                                                         stratify=y)
 
     sc = StandardScaler()
@@ -90,14 +117,26 @@ def main():
     # Show the test accuracy
     print('Test accuracy: {}'.format(svm.score(X_test_std, y_test)))
 
-    # plot_decision_regions(X_combined_std,
-    #                       y_combined,
-    #                       svm)
+    # Assign accuracies to variables
+    results_accuracy = accuracy_score(y_test, y_pred)
+    misclassified_samples = (y_test != y_pred).sum()
+    train_accuracy = svm.score(X_train_std, y_train)
+    test_accuracy = svm.score(X_test_std, y_test)
 
-    # plt.xlabel('Biomedical Indicators')
-    # plt.ylabel('Outcome')
-    # plt.legend(loc='upper left')
-    # plt.show()
+    return (results_accuracy,
+            misclassified_samples,
+            train_accuracy,
+            test_accuracy)
+
+
+def main():
+    resultslist = []
+    for i in range(20):
+        result = classify()
+
+        resultslist.append(result)
+
+    log_results(resultslist)
 
 
 main()
