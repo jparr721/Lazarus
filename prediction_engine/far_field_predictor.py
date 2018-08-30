@@ -18,13 +18,12 @@ def plot_decision_regions(X, y, classifier, test_idx=None,
     # Plot decision surface
     x1_min, x1_max = X[:, 0].min() - 1, X[:, 0].max() + 1
     x2_min, x2_max = X[:, 1].min() - 1, X[:, 1].max() + 1
-
     xx1, xx2 = np.meshgrid(np.arange(x1_min, x1_max, resolution),
                            np.arange(x2_min, x2_max, resolution))
     z = classifier.predict(np.array([xx1.ravel(), xx2.ravel()]).T)
     z = z.reshape(xx1.shape)
-    plt.contour(xx1, xx2, alpha=0.3, cmap=cmap)
-    plt.xlim(xx1.min(), xx1.max)
+    plt.contourf(xx1, xx2, z, alpha=0.3, cmap=cmap)
+    plt.xlim(xx1.min(), xx1.max())
     plt.ylim(xx2.min(), xx2.max())
 
     for idx, cl in enumerate(np.unique(y)):
@@ -33,7 +32,7 @@ def plot_decision_regions(X, y, classifier, test_idx=None,
                     marker=markers[idx], label=cl,
                     edgecolor='black')
 
-    # Highlight test samples
+    # highlight test samples
     if test_idx:
         # Plot all samples
         X_test = X[test_idx, :]
@@ -47,7 +46,7 @@ def plot_decision_regions(X, y, classifier, test_idx=None,
 def load_data(path):
     diabetes_data = pd.read_csv(path)
     y = diabetes_data.Outcome
-    X = diabetes_data.drop(['Outcome'], axis=1)
+    X = diabetes_data.drop(['Outcome', 'SkinThickness'], axis=1)
     return X, y
 
 
@@ -62,7 +61,7 @@ def main():
                                                         stratify=y)
 
     sc = StandardScaler()
-    svm = SVC(kernel='linear', C=1.0, random_state=1)
+    svm = SVC(kernel='rbf', C=3.0, random_state=1)
 
     # Estimate the mean and standard deviation of each feature
     sc.fit(X_train)
@@ -85,13 +84,15 @@ def main():
     # Find accuracy of the results
     print('Accuracy of results: {}'.format(accuracy_score(y_test, y_pred)))
 
+    # Show the training accuracy
+    print('Train accuracy: {}'.format(svm.score(X_train_std, y_train)))
+
     # Show the test accuracy
     print('Test accuracy: {}'.format(svm.score(X_test_std, y_test)))
 
     # plot_decision_regions(X_combined_std,
     #                       y_combined,
-    #                       svm,
-    #                       range(105, 150))
+    #                       svm)
 
     # plt.xlabel('Biomedical Indicators')
     # plt.ylabel('Outcome')
