@@ -1,0 +1,109 @@
+Run time: 2018-08-31 12:24:36.700702
+        Results Accuracy: 0.7705627705627706
+        Misclassified Samples: 53
+        Training Accuracy: 0.8584729981378026
+        Test Accuracy: 0.7705627705627706
+
+        Results Accuracy: 0.7835497835497836
+        Misclassified Samples: 50
+        Training Accuracy: 0.851024208566108
+        Test Accuracy: 0.7835497835497836
+
+        Results Accuracy: 0.7489177489177489
+        Misclassified Samples: 58
+        Training Accuracy: 0.851024208566108
+        Test Accuracy: 0.7489177489177489
+
+        Results Accuracy: 0.7619047619047619
+        Misclassified Samples: 55
+        Training Accuracy: 0.8547486033519553
+        Test Accuracy: 0.7619047619047619
+
+        Results Accuracy: 0.7748917748917749
+        Misclassified Samples: 52
+        Training Accuracy: 0.851024208566108
+        Test Accuracy: 0.7748917748917749
+
+        Results Accuracy: 0.7532467532467533
+        Misclassified Samples: 57
+        Training Accuracy: 0.8659217877094972
+        Test Accuracy: 0.7532467532467533
+
+        Results Accuracy: 0.7792207792207793
+        Misclassified Samples: 51
+        Training Accuracy: 0.8491620111731844
+        Test Accuracy: 0.7792207792207793
+
+        Results Accuracy: 0.7662337662337663
+        Misclassified Samples: 54
+        Training Accuracy: 0.8417132216014898
+        Test Accuracy: 0.7662337662337663
+
+        Results Accuracy: 0.7489177489177489
+        Misclassified Samples: 58
+        Training Accuracy: 0.8621973929236499
+        Test Accuracy: 0.7489177489177489
+
+        Results Accuracy: 0.7619047619047619
+        Misclassified Samples: 55
+        Training Accuracy: 0.8696461824953445
+        Test Accuracy: 0.7619047619047619
+
+        Results Accuracy: 0.7272727272727273
+        Misclassified Samples: 63
+        Training Accuracy: 0.8677839851024208
+        Test Accuracy: 0.7272727272727273
+
+        Results Accuracy: 0.8051948051948052
+        Misclassified Samples: 45
+        Training Accuracy: 0.8435754189944135
+        Test Accuracy: 0.8051948051948052
+
+        Results Accuracy: 0.7489177489177489
+        Misclassified Samples: 58
+        Training Accuracy: 0.8566108007448789
+        Test Accuracy: 0.7489177489177489
+
+        Results Accuracy: 0.7489177489177489
+        Misclassified Samples: 58
+        Training Accuracy: 0.8491620111731844
+        Test Accuracy: 0.7489177489177489
+
+        Results Accuracy: 0.7489177489177489
+        Misclassified Samples: 58
+        Training Accuracy: 0.8584729981378026
+        Test Accuracy: 0.7489177489177489
+
+        Results Accuracy: 0.70995670995671
+        Misclassified Samples: 67
+        Training Accuracy: 0.8621973929236499
+        Test Accuracy: 0.70995670995671
+
+        Results Accuracy: 0.7619047619047619
+        Misclassified Samples: 55
+        Training Accuracy: 0.8547486033519553
+        Test Accuracy: 0.7619047619047619
+
+        Results Accuracy: 0.7489177489177489
+        Misclassified Samples: 58
+        Training Accuracy: 0.8677839851024208
+        Test Accuracy: 0.7489177489177489
+
+        Results Accuracy: 0.7922077922077922
+        Misclassified Samples: 48
+        Training Accuracy: 0.8547486033519553
+        Test Accuracy: 0.7922077922077922
+
+        Results Accuracy: 0.7748917748917749
+        Misclassified Samples: 52
+        Training Accuracy: 0.8342644320297952
+        Test Accuracy: 0.7748917748917749
+
+    Average Results Accuracy: 0.7608225108225108
+    Average Misclassified Samples: 55.25
+    Average Training Accuracy: 0.8552141527001862
+    Average Test Accuracy: 0.7608225108225108
+    This sample was recorded with an rbf kernel and a C value of 3.0 and shuffled data
+## END SAMPLE
+
+Run time: 2018-08-31 12:41:05.069017

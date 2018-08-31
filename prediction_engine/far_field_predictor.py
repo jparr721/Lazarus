@@ -9,7 +9,23 @@ from sklearn.svm import SVC
 import datetime
 
 
-def log_results(stats):
+def calculate_field_average(stats):
+    avg_result_accuracy = (sum([stat[0] for stat in stats]) /
+                           len([stat[0] for stat in stats]))
+    avg_misclassified = (sum([stat[1] for stat in stats]) /
+                         len([stat[1] for stat in stats]))
+    avg_training_accuracy = (sum([stat[2] for stat in stats]) /
+                             len([stat[2] for stat in stats]))
+    avg_test_accuracy = (sum([stat[3] for stat in stats]) /
+                         len([stat[3] for stat in stats]))
+
+    return (avg_result_accuracy,
+            avg_misclassified,
+            avg_training_accuracy,
+            avg_test_accuracy)
+
+
+def log_results(stats, console=False):
     """
     Takes an output tuple of
     values and logs each to a
@@ -17,7 +33,7 @@ def log_results(stats):
     """
     now = datetime.datetime.now()
 
-    logfile = open('runs.txt', 'a')
+    logfile = open('samples.txt', 'a')
     logfile.write('\nRun time: {}'.format(str(now)))
 
     for output in stats:
@@ -28,7 +44,27 @@ def log_results(stats):
         Test Accuracy: {}
         '''.format(output[0], output[1], output[2], output[3])
 
-        logfile.write(formatted_text)
+        if console:
+            print(formatted_text)
+        else:
+            logfile.write(formatted_text)
+
+    avg = calculate_field_average(stats)
+
+    averages = '''
+    Average Results Accuracy: {}
+    Average Misclassified Samples: {}
+    Average Training Accuracy: {}
+    Average Test Accuracy: {}
+    '''.format(avg[0], avg[1], avg[2], avg[3])
+
+    if console:
+        print('\n')
+        print(averages)
+        print('## END')
+    else:
+        logfile.write(averages)
+        logfile.write('## END SAMPLE')
 
 
 def plot_decision_regions(X, y, classifier, test_idx=None,
@@ -105,17 +141,17 @@ def classify():
     # Make predictions about the standardized input
     y_pred = svm.predict(X_test_std)
 
-    # Predict the accuracy of the predictions and misclassifications
-    print('Misclassified samples: {}'.format((y_test != y_pred).sum()))
+    # # Predict the accuracy of the predictions and misclassifications
+    # print('Misclassified samples: {}'.format((y_test != y_pred).sum()))
 
-    # Find accuracy of the results
-    print('Accuracy of results: {}'.format(accuracy_score(y_test, y_pred)))
+    # # Find accuracy of the results
+    # print('Accuracy of results: {}'.format(accuracy_score(y_test, y_pred)))
 
-    # Show the training accuracy
-    print('Train accuracy: {}'.format(svm.score(X_train_std, y_train)))
+    # # Show the training accuracy
+    # print('Train accuracy: {}'.format(svm.score(X_train_std, y_train)))
 
-    # Show the test accuracy
-    print('Test accuracy: {}'.format(svm.score(X_test_std, y_test)))
+    # # Show the test accuracy
+    # print('Test accuracy: {}'.format(svm.score(X_test_std, y_test)))
 
     # Assign accuracies to variables
     results_accuracy = accuracy_score(y_test, y_pred)
@@ -136,7 +172,7 @@ def main():
 
         resultslist.append(result)
 
-    log_results(resultslist)
+    log_results(resultslist, True)
 
 
 main()
