@@ -6,7 +6,7 @@ The support vector machine performed considerably better with the Pima Indians D
 Training Accuracy: 83%
 Test Accuracy: 78%
 
-Right now the results are exhibiting signs of variance which will equire additional tuning to fix.
+Right now the results are exhibiting signs of bias which will equire additional tuning to fix.
 I also would ideally want to have a training set and test set accuracy of ~90% at least before I move
 onto the next phase of the research project.
 
