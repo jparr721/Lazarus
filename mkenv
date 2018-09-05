@@ -1,3 +1,5 @@
 #!bin/bash
 
+# Creates a python virtual environment because I am too lazy to keep writing this
+
 virtualenv --system-site-packages --python=.localpython/Python-3.6.6/bin/python3.6 env
