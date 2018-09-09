@@ -1,4 +1,4 @@
-#!bin/bash
+#! /usr/bin/bash
 
 # Creates a python virtual environment because I am too lazy to keep writing this
 
