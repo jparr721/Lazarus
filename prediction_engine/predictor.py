@@ -1,7 +1,6 @@
 import tensorflow as tf
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 
 
 class Predictor(object):
@@ -9,7 +8,8 @@ class Predictor(object):
         self.batch_size = batch_size
         self._sess = tf.Session()
         self.gamma = gamma
-        self.prediction_grid = tf.placeholder(shape=[None, 2], dtype=tf.float32)
+        self.prediction_grid = tf.placeholder(shape=[None, 2],
+                                              dtype=tf.float32)
 
     def read_data(self, source):
         '''
@@ -44,13 +44,15 @@ class Predictor(object):
 
     def predict(self, X, y, b):
         rA = tf.reshape(tf.reduce_sum(tf.square(X), 1), [-1, 1])
-        rB = tf.reshape(tf.reduce_sum(tf.square(self.prediction_grid), 1), [-1, 1])
+        rB = tf.reshape(tf.reduce_sum(tf.square(self.prediction_grid), 1),
+                        [-1, 1])
 
         pred_sq_dist = \
             tf.add(tf.sub(rA,
                           tf.mul(2.,
                                  tf.matmul(X,
-                                           tf.transpose(self.prediction_grid))),
+                                           tf.transpose(
+                                               self.prediction_grid))),
                           tf.transpose(rB)))
 
         # linear prediction kernel

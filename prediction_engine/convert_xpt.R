@@ -11,7 +11,7 @@ for (i in 1:length(xptfiles)) {
   file_name <- substr(xptfile, 1, nchar(xptfile) - 3)
   ext <- "csv"
 
-  csvfile <- pase0(file_name, ext)
+  csvfile <- paste0(file_name, ext)
   csvfiles[i] <- paste0(file_name, ext)
 
   df <- read.xport(xptfile)
