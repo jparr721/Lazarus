@@ -1,6 +1,16 @@
 # Documentation
 Documentation is added at sufficient milestones.
 
+## September 12th, 2018
+The support vector machine implementation via tensorflow allowed for a very marginal increase in
+training time for the algorithm, and a very negligable increase in overall predictive accuracy of
+the dataset. I feel that I have reached the end of the usefulness of this dataset, but I am now
+moving onto the more robust NHANES dataset to be able to make much more real life estimates about
+the outcome and lifestyle choices that affect diabetes in adults.
+
+I need to do more research to determine the viability of the insulin prediction system to know more
+concretely whether or not it is feasible given my current resources.
+
 ## August 29th, 2018
 The support vector machine performed considerably better with the Pima Indians Data Set
 Training Accuracy: 83%
