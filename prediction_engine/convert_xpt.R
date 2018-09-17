@@ -1,7 +1,7 @@
 library(readr)
 library(SASxport)
 
-setwd("/home/hermes/ML/Lazarus/Diabetes-Data/csvs")
+setwd("~/ML/Lazarus/Diabetes-Data/csvs")
 
 xptfiles <- list.files(pattern = "*.XPT")
 csvfiles <- NULL
