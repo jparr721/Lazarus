@@ -32,6 +32,13 @@ The Random Forest Regressor did not perform well. I will be doing additional exp
 different learning algorithms to find a more performant option.
 
 ## Citations
+### WebMD
+#### How alcohol affects diabetes
+https://www.webmd.com/diabetes/guide/drinking-alcohol
+
+### NIDDK - National Institude of Diabetes and Digestive and Kidney Diseases
+https://www.niddk.nih.gov/health-information/diabetes/overview/preventing-problems/heart-disease-stroke
+
 ### Pima Indians Database
 This dataset is originally from the National Institute of Diabetes and Digestive and Kidney Diseases.
 The purposes of it for my research are to use it as a base training point as well as springboard for further
