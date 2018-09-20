@@ -1,4 +1,5 @@
 import pandas as pd
+from functools import reduce
 
 path = '~/ML/Lazarus/Diabetes-Data/csvs/'
 
@@ -33,3 +34,11 @@ def clean():
         if c != 'CDQ001':
             CDQ_I.drop(c)
 
+    list_x15_16 = list(ALQ_I, CDQ_I, HSQ_I, DIQ_I, INQ_I,
+                       MCQ_I, PAQ_I, WHD_I)
+
+    # Merge all data into one list
+    merged = reduce(lambda left, right: pd.merge(left, right, on='SEQ',
+                    how='outer'), list_x15_16)
+
+    merged.to_csv(path + 'merged.csv')
