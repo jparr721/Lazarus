@@ -108,3 +108,134 @@ Run time: 2018-08-31 12:24:36.700702
 
 Run time: 2018-08-31 12:41:05.069017
 Run time: 2018-10-03 14:25:18.765986
+Run time: 2018-10-03 18:58:41.523894
+
+
+        Results Accuracy: 0.9986077271145144
+        Misclassified Samples: 4
+        Training Accuracy: 0.9994031632348552
+        Test Accuracy: 0.9986077271145144
+
+
+        Results Accuracy: 0.9993038635572572
+        Misclassified Samples: 2
+        Training Accuracy: 0.9992539540435691
+        Test Accuracy: 0.9993038635572572
+
+
+        Results Accuracy: 0.9993038635572572
+        Misclassified Samples: 2
+        Training Accuracy: 0.9992539540435691
+        Test Accuracy: 0.9993038635572572
+
+
+        Results Accuracy: 0.9989557953358859
+        Misclassified Samples: 3
+        Training Accuracy: 0.9994031632348552
+        Test Accuracy: 0.9989557953358859
+
+
+        Results Accuracy: 0.9986077271145144
+        Misclassified Samples: 4
+        Training Accuracy: 0.9995523724261415
+        Test Accuracy: 0.9986077271145144
+
+
+        Results Accuracy: 0.9986077271145144
+        Misclassified Samples: 4
+        Training Accuracy: 0.9994031632348552
+        Test Accuracy: 0.9986077271145144
+
+
+        Results Accuracy: 0.9996519317786287
+        Misclassified Samples: 1
+        Training Accuracy: 0.999104744852283
+        Test Accuracy: 0.9996519317786287
+
+
+        Results Accuracy: 0.9996519317786287
+        Misclassified Samples: 1
+        Training Accuracy: 0.999104744852283
+        Test Accuracy: 0.9996519317786287
+
+
+        Results Accuracy: 0.9996519317786287
+        Misclassified Samples: 1
+        Training Accuracy: 0.999104744852283
+        Test Accuracy: 0.9996519317786287
+
+
+        Results Accuracy: 0.9986077271145144
+        Misclassified Samples: 4
+        Training Accuracy: 0.9994031632348552
+        Test Accuracy: 0.9986077271145144
+
+
+        Results Accuracy: 0.9989557953358859
+        Misclassified Samples: 3
+        Training Accuracy: 0.9994031632348552
+        Test Accuracy: 0.9989557953358859
+
+
+        Results Accuracy: 0.998259658893143
+        Misclassified Samples: 5
+        Training Accuracy: 0.9994031632348552
+        Test Accuracy: 0.998259658893143
+
+
+        Results Accuracy: 0.9993038635572572
+        Misclassified Samples: 2
+        Training Accuracy: 0.999104744852283
+        Test Accuracy: 0.9993038635572572
+
+
+        Results Accuracy: 0.9993038635572572
+        Misclassified Samples: 2
+        Training Accuracy: 0.9992539540435691
+        Test Accuracy: 0.9993038635572572
+
+
+        Results Accuracy: 0.9989557953358859
+        Misclassified Samples: 3
+        Training Accuracy: 0.9994031632348552
+        Test Accuracy: 0.9989557953358859
+
+
+        Results Accuracy: 0.9993038635572572
+        Misclassified Samples: 2
+        Training Accuracy: 0.999104744852283
+        Test Accuracy: 0.9993038635572572
+
+
+        Results Accuracy: 0.9993038635572572
+        Misclassified Samples: 2
+        Training Accuracy: 0.9992539540435691
+        Test Accuracy: 0.9993038635572572
+
+
+        Results Accuracy: 0.9993038635572572
+        Misclassified Samples: 2
+        Training Accuracy: 0.999104744852283
+        Test Accuracy: 0.9993038635572572
+
+
+        Results Accuracy: 0.9993038635572572
+        Misclassified Samples: 2
+        Training Accuracy: 0.999104744852283
+        Test Accuracy: 0.9993038635572572
+
+
+        Results Accuracy: 0.9986077271145144
+        Misclassified Samples: 4
+        Training Accuracy: 0.9994031632348552
+        Test Accuracy: 0.9986077271145144
+
+
+
+
+    Average Results Accuracy: 0.999077619213366
+    Average Misclassified Samples: 2.65
+    Average Training Accuracy: 0.9992763354222622
+    Average Test Accuracy: 0.999077619213366
+
+## END
