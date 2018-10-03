@@ -109,13 +109,14 @@ def plot_decision_regions(X, y, classifier, test_idx=None,
 
 def load_data(path):
     diabetes_data = pd.read_csv(path)
-    y = diabetes_data.Outcome
-    X = diabetes_data.drop(['Outcome', 'SkinThickness'], axis=1)
+    y = diabetes_data.Diabetes
+    X = diabetes_data.drop(['Diabetes'], axis=1)
     return X, y
 
 
 def classify():
-    X, y = load_data('../Diabetes-Data/diabetes.csv')
+    # X, y = load_data('../Diabetes-Data/diabetes.csv')
+    X, y, = load_data('../Diabetes-Data/csvs/merged.csv')
 
     # Split the data 30% test and 70% train, stratify for proporion
     X_train, X_test, y_train, y_test = train_test_split(X,

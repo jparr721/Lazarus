@@ -1,6 +1,14 @@
 # Documentation
 Documentation is added at sufficient milestones.
 
+## October 3rd, 2018
+With the new and improved dataset I am getting an extremely high level of performance out of my algorithm. It is
+succeeding very well at what it does and has exhibited extremely high accuracy in both cases across multiple system
+runs.
+
+Training Accuracy: 99%
+Test Accuracy: 99%
+
 ## September 12th, 2018
 The support vector machine implementation via tensorflow allowed for a very marginal increase in
 training time for the algorithm, and a very negligable increase in overall predictive accuracy of

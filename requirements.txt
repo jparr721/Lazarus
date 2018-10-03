@@ -7,3 +7,4 @@ tensorflow==1.10
 xport==2.0.2
 goofle-api-python-client==1.7.4
 oauth2client==4.1.3
+PyDrive==1.3.1
