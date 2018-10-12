@@ -43,6 +43,9 @@ def clean():
     PAQ_I = PAQ_I[PAQ_I_keep]
     WHQ_I_keep = ['SEQN', 'WHD020', 'WHQ030']
     WHQ_I = WHQ_I[WHQ_I_keep]
+    print(WHQ_I.shape[1])
+
+    '''
     weights = [x for x in WHQ_I.T]
 
     for val in range(len(weights)):
@@ -61,6 +64,7 @@ def clean():
     merged.fillna(0, inplace=True)
 
     merged.to_csv(path + 'merged.csv')
+    '''
 
 
 clean()

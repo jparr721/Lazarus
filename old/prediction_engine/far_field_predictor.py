@@ -134,9 +134,6 @@ def classify():
     X_train_std = sc.transform(X_train)
     X_test_std = sc.transform(X_test)
 
-    # X_combined_std = np.vstack((X_train_std, X_test_std))
-    # y_combined = np.hstack((y_train, y_test))
-
     svm.fit(X_train_std, y_train)
 
     # Make predictions about the standardized input
