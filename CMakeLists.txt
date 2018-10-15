@@ -20,6 +20,7 @@ include_directories(
   "${PROJECT_SOURCE_DIR}")
 
 # sub directories
-add_subdirectory(lib/kfold)
+add_subdirectory(Lazarus/lib)
+add_subdirectory(Lazarus/core)
 
 
