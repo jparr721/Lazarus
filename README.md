@@ -21,7 +21,7 @@ The project can be cloned anywhere on the desired system. PROJECT\_ROOT is assum
 CMake supports out of source builds, so we can make a build directory (refered herein as `BUILD_DIR`).
 ```
 cd <PROJECT_ROOT>
-mkdir <BUILD_DIR?
+mkdir <BUILD_DIR>
 ```
 
 After the place to build our system has been created we can now use CMake to generate our build structure.
