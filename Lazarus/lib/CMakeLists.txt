@@ -1,31 +1,24 @@
 cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-project(lib VERSION 0.1.0 LANGUAGES CXX)
+project(LazarusCoreLib VERSION 0.1.0 LANGUAGES CXX)
 
-add_library(LazarusCoreLib SHARED
-  src/kfold.cc
-)
+set(LAZARUSLIB_MAJOR_VERSION 0)
+set(LAZARUSLIB_MINOR_VERSION 1)
+set(LAZARUSLIB_PATCH_VERSION 0)
+set (LAZARUSLIB_VERSION
+  ${LAZARUSLIB_MAJOR_VERSION}.${LAZARUSLIB_MINOR_VERSION}.${LAZARUSLIB_PATCH_VERSION})
 
-target_link_libraries(LazarusCore)
+set(INSTALL_LIB_DIR lib CACHE PATH "Install directory for libraries")
 
-target_include_directories(LazarusCoreLib
-  PUBLIC
-    $<INSTALL_INTERFACE:include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOUCE_DIR}/include>
-  PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-)
+include_directories(
+  "${PROJECT_SOURCE_DIR}"
+  "${PROJECT_BINARY_DIR}")
 
-set_target_properties(LazarusCoreLib PROPERTIES
-  VERSION 0.1.0
-  SOVERSION 1
-)
+add_subdirectory(lib/kfold)
 
-install(DIRECTORY include/ DESTINATION "${INSTALL_INCLUDE_DIR}")
+export (TARGETS LazarusANN LazarusCoreLib LazarusKfold
+  FILE "${PROJECT_BINARY_DIR}/LazarusCoreTargets.cmake")
 
-install(TARGETS LazarusCoreLib
-  EXPORT LazarusCoreTargets
-  RUNTIME DESTINATION "${INSTALL_BIN_DIR}" COMPONENT bin
-  LIBRARY DESTINATION "${INSTALL_LIB_DIR}/Lazarus/core" COMPONENT shlib
-)
+export (PACKAGE LazarusCoreLib)
+
