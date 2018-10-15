@@ -11,7 +11,7 @@ namespace kfold {
   template <class in>
   class KFold {
     public:
-      KFold(int k, in beg, in _end);
+      KFold(int _k, in _beg, in _end);
       template <class out>
       void get_fold(int fold, out training, out testing);
 
@@ -19,7 +19,7 @@ namespace kfold {
       in beginning;
       in end;
       int K; // how many folds
-      std::vector<int> fold;
+      std::vector<int> folds;
   };
 
 } // namespace kfold
