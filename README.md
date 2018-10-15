@@ -49,7 +49,7 @@ make install
 To uninstall simply execute `$ rm -r <PROJECT_ROOT>` and all files should be fully removed from the computer then. Note, if you installed to a different folder, that will remain present upon deletion of the project root and will also need to be removed.
 
 ## License
-This project is licensed under the GNU General Public License v3.0 - see the (https://github.com/jparr721/Lazarus/blob/master/LICENSE) LICENSE file for details.
+This project is licensed under the GNU General Public License v3.0 - see the [https://github.com/jparr721/Lazarus/blob/master/LICENSE](LICENSE) file for details.
 
 ## Acknowledgements
 - Grand Valley State University DEN Research Lab members.
