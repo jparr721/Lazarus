@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-project(LazarusCore VERSION 0.1.0 LANGUAGES CXX)
+project(LazarusCore LANGUAGES CXX)
 
 set(LAZARUSLIB_MAJOR_VERSION 0)
 set(LAZARUSLIB_MINOR_VERSION 1)
@@ -27,12 +27,17 @@ foreach(p LIB BIN INCLUDE CMAKE_
     endif()
 endforeach()
 
+set(Boost_USE_STATIC_LIBS OFF)
+set(Boost_USE_MULTITHREADED ON)
+set(Boost_USE_STATIC_RUNTIME OFF)
+find_package(Boost 1.68.0 COMPONENTS numeric REQUIRED)
+
 include_directories(
   "${PROJECT_SOURCE_DIR}"
   "${PROJECT_BINARY_DIR}")
 
 add_subdirectory(Lazarus/neural_network)
-add_subdirectory(Laarus/model_selection)
+add_subdirectory(Laarus/preprocessing)
 add_subdirectory(Lazarus/core)
 add_subdirectory(Lazarus/svm)
 
