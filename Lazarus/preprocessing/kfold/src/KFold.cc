@@ -27,7 +27,7 @@ void KFold<in>::getFold(int foldNo, out training, out testing) {
 
   while (i != this->end) {
     if (this->folds[++k] == foldNo) {
-      *testing** = *i++;
+      *testing++ = *i++;
     } else {
       *training++ = *i++;
     }
