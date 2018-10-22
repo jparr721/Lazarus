@@ -7,4 +7,5 @@ set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for preprocessor libr
 set(INSTALL_BIN_DIR bin CACHE PATH "Installation directory for preprocessor executables")
 set(INSTALL_INCLUDE_DIR inclue CACHE PATH "Installation direcotry for header files")
 
-
+add_subdirectory(kfold)
+add_subdirectory(onehot)
