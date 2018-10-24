@@ -5,7 +5,7 @@ add_library(LazarusCoreNN SHARED
   src/multi_layer_perceptron.cc
 )
 
-target_link_libraries(LazarusCoreNN LazarusCore)
+target_link_libraries(LazarusCoreNN)
 
 target_include_directories(LazarusCoreNN
   PUBLIC

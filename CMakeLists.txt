@@ -19,30 +19,31 @@ else()
   set(DEF_INSTALL_CMAKE_DIR lib/CMake/LazarusCore)
 endif()
 
+set(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH "installation directory for CMake files")
+
 # Make relative paths absolute
-foreach(p LIB BIN INCLUDE CMAKE_
+foreach(p LIB BIN INCLUDE CMAKE)
     set(var INSTALL_${p}_DIR)
     if(NOT IS_ABSOLUTE "${${var}}")
-      set(${var} "${CMAKE_INSTALL_PREFIX/${${var}}")
+      set(${var} "${CMAKE_INSTALL_PREFIX}/${${var}}")
     endif()
 endforeach()
 
-set(Boost_USE_STATIC_LIBS OFF)
-set(Boost_USE_MULTITHREADED ON)
-set(Boost_USE_STATIC_RUNTIME OFF)
-find_package(Boost 1.68.0 COMPONENTS numeric REQUIRED)
+find_package(Boost 1.68.0 REQUIRED)
 
 include_directories(
   "${PROJECT_SOURCE_DIR}"
   "${PROJECT_BINARY_DIR}")
 
 add_subdirectory(Lazarus/neural_network)
-add_subdirectory(Laarus/preprocessing)
+add_subdirectory(Lazarus/preprocessing)
 add_subdirectory(Lazarus/core)
 add_subdirectory(Lazarus/svm)
 
+target_link_libraries(LazarusCore LazarusCorePreprocessing)
+
 # Add targets to build tree
-export(TARGETS LazarusCore LazarusCoreNN LazarusCoreMS LazarusCoreSVM
+export(TARGETS LazarusCore LazarusCoreNN LazarusCorePreprocessing LazarusCoreSVM
   FILE "${PROJECT_BINARY_DIR}/LazarusCoreTargets.cmake")
 
 export(PACKAGE LazarusCore)

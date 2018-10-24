@@ -1,24 +1,35 @@
-cmake_minimum_required(VERSION 3.9)
-project(lazarus LANGUAGES CXX)
-
-set(LAZARUS_MAJOR_VERSION 0)
-set(LAZARUS_MINOR_VERSION 1)
-set(LAZARUS_PATCH_VERSION 0)
-set(LAZARUS_TWEAK_VERSION 0)
-set(LAZARUS_VERSION
-  ${LAZARUS_MAJOR_VERSION}.${LAZARUS_MINOR_VERSION}.${LAZARUS_PATCH_VERSION}.${LAZARUS_TWEAK_VERSION}
-)
-
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/bin)
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
-set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 
-include_directories(
-  "${PROJECT_SOURCE_DIR}")
+find_package(Boost REQUIRED)
+find_package(ImageMagick REQUIRED COMPONENTS Magick++)
 
-# sub directories
-add_subdirectory(lib/kfold)
+add_library(LazarusCore SHARED
+  src/lazarus.cc
+)
 
+target_link_libraries(LazarusCore)
+
+include_directories(${ImageMagick_INCLUDE_DIRS})
+
+target_include_directories(LazarusCore
+  PUBLIC
+    $<INSTALL_INTERFACE:incude>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
+set_target_properties(LazarusCore PROPERTIES
+  VERSION 0.1.0
+  SOVERSION 0
+)
+
+install(DIRECTORY include/ DESTINATION "${INSTALL_INCLUDE_DIR}")
+
+install(TARGETS LazarusCore
+  EXPORT LazarusCoreTArgets
+  RUNTIME DESTINATION "${INSTALL_BING_DIR}" COMPONENT bin
+  LIBRARY DESTINATION "${INSTALL_LIB_DIR}" COMPONENT shlib
+)

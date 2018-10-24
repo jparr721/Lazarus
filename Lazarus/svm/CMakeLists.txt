@@ -22,7 +22,7 @@ set_target_properties(LazarusCoreSVM PROPERTIES
 
 install(DIRECTORY include/ DESTINATION "${INSTALL_INCLUDE_DIR}")
 
-install(TARGETS LaarusCoreSVM
+install(TARGETS LazarusCoreSVM
   EXPORT LazarusCoreTargets
   RUNTIME DESTINATION "${INSTALL_BIN_DIR}" COMPONENT bin
   LIBRARY DESTINATION "${INSTALL_LIB_DIR}/Lazarus/core" COMPONENT shlib
