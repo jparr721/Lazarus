@@ -89,7 +89,8 @@ namespace svm {
   float SVM::fit(
       int max_passes=5,
       int tol=1e-3,
-      KernelFunction kf=KernelFunction::linear
+      KernelFunction kf=KernelFunction::linear,
+      int sigma = 0.1
       ) {
     int m = this->X.size1();
     int n = this->X.size2();
@@ -101,7 +102,41 @@ namespace svm {
       }
     }
 
-    boost::numeric::ublas::vector<int> zeros();
+    // Variables to use in our classifier
+    boost::numeric::ublas::vector<int> alphas(m, 0);
+    boost::numeric::ublas::vector<int> E(m, 1);
+    int passes = 0;
+    int eta = 0;
+    int L = 0;
+    int H = 0;
+    int b = 0;
+
+    // Our kernel function output
+    auto K;
+
+    // TODO - Use openMP to calculate where appropriate
+    // Pre compute our Kernel Matrix
+    if (kf == KernelFunction::linear) {
+      // Doing the vectorized implementation for a linear
+      // kernel.
+      K = this->compute_linear_kernel(X, X);
+    } else if (kf == KernelFunction::gaussian) {
+      // Doing the vectorized RBF kernel here.
+
+      for (int i = 0; i < m - 1; ++i) {
+        K = this->compute_gaussian_kernel(X(i), X(i + 1), sigma);
+      }
+    } else {
+      // Init K to be all zero
+      K = std::vector<int>(m, 0);
+
+      // Make this openMP supported
+      for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < m; ++j) {
+          K[i][j] = this->compute_gaussian_kernel(K[i][j], K[j][i], sigma);
+        }
+      }
+    }
   }
 
 } // namespace svm

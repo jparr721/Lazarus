@@ -12,6 +12,7 @@ namespace svm {
 enum KernelFunction {
   linear = 0,
   gaussian = 1,
+  non_vectorized = 9,
 };
 
 class SVM {
@@ -29,7 +30,7 @@ class SVM {
     boost::numeric::ublas::vector<float> _y;
     int _C;
     void binarize(boost::numeric::ublas::vector<float> *margins);
-    float fit(int max_passes, int tol, KernelFunction kf);
+    float fit(int max_passes, int tol, KernelFunction kf, int sigma);
     float compute_gaussian_kernel(int x1, int x2, int sigma);
     float compute_linear_kernel(boost::numeric::ublas::vector<float> x1,
                                 boost::numeric::ublas::vector<float> x2);
