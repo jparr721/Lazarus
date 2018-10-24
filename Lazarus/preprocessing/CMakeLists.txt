@@ -1,6 +1,4 @@
 cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project(LazarusCorePreprocessing LANGUAGES CXX)
 
 set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for preprocessor libraries")
@@ -30,7 +28,7 @@ include_directories(
 add_subdirectory(kfold)
 add_subdirectory(onehot)
 
-export(TARGETS LazarusCorePreprocessingKFold LazarusCorePreprocessingOnehot
+export(TARGETS LazarusCorePreprocessing LazarusCorePreprocessingKFold LazarusCorePreprocessingOnehot
   FILE "${PROJECT_BINARY_DIR}/LazarusCorePreprocesingTargets.cmake")
 
 export(PACKAGE LazarusCorePreprocessing)
