@@ -55,4 +55,5 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 - Grand Valley State University DEN Research Lab members.
 - Dr. Greg Wolffe
 - Roberto Sanchez
+- Lawrence O'Boyle
 - Any of the numberous guides and walkthroughs I have followed thus far.
