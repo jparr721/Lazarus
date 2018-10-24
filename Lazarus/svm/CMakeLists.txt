@@ -5,7 +5,7 @@ add_library(LazarusCoreSVM SHARED
   src/svm.cc
 )
 
-target_link_libraries(LazarusCoreSVM LazarusCore)
+#target_link_libraries(LazarusCoreSVM LazarusCore)
 
 target_include_directories(LazarusCoreSVM
   PUBLIC

@@ -5,7 +5,7 @@ add_library(LazarusCorePreprocessingKFold SHARED
   src/kfold.cc
 )
 
-target_link_libraries(LazarusCorePreprocessingKFold LazarusCorePreprocessing)
+#target_link_libraries(LazarusCorePreprocessingKFold LazarusCorePreprocessing)
 
 target_include_directories(LazarusCorePreprocessingKFold
   PUBLIC

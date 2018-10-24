@@ -28,7 +28,7 @@ include_directories(
 add_subdirectory(kfold)
 add_subdirectory(onehot)
 
-export(TARGETS LazarusCorePreprocessing LazarusCorePreprocessingKFold LazarusCorePreprocessingOnehot
+export(TARGETS LazarusCorePreprocessingKFold LazarusCorePreprocessingOnehot
   FILE "${PROJECT_BINARY_DIR}/LazarusCorePreprocesingTargets.cmake")
 
 export(PACKAGE LazarusCorePreprocessing)
