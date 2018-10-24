@@ -1,8 +1,8 @@
-# Lazarus: Diabetes Classification via High-Performance Neural Networks
+# Lazarus: Diabetes Classification via High-Performance Classifiers
 Lazarus of Bethany, also known as Saint Lazarus or Lazarus of the Four Days, is the subject of a prominent miracle of Jesus in the Gospel of John, in which Jesus restores him to life four days after his death. This project has no religious affiliation, but the idea of the tale of Lazarus is a very interesting one and a neat concept to think about for my medical research. As long as we don't create a zombie apocalype, that is.
 
 ## Getting Started With This Classifier
-These instructions will get you a copy of the classifier on your local machine for use with your own data (see below for proper measurement criteria for patients).
+These instructions will get you a copy of the classifier on your local machine for use with your own data (see below for proper measurement criteria for patients). Inside of the `core` directory will be tests on sample data to verify functionality as well as implementations for the given research here.
 
 ### Prerequisites
 Currently, this has only been tested on Linux 4.18.5+ and has not been tested on other platforms at this time
