@@ -21,7 +21,7 @@ class SVM {
     SVM(
         const boost::numeric::ublas::matrix<float>& X,
         const boost::numeric::ublas::vector<float>& y,
-        int C) : _X(X), _y(y), _C(C) {};
+        int C);
 
   private:
     float loss = 0.0;
@@ -29,11 +29,11 @@ class SVM {
     boost::numeric::ublas::matrix<float> _X;
     boost::numeric::ublas::vector<float> _y;
     int _C;
-    void binarize(boost::numeric::ublas::vector<float> *margins);
+    void binarize(boost::numeric::ublas::vector<float>& margins);
     float fit(int max_passes, int tol, KernelFunction kf, int sigma);
     float compute_gaussian_kernel(int x1, int x2, int sigma);
-    float compute_linear_kernel(boost::numeric::ublas::vector<float> x1,
-                                boost::numeric::ublas::vector<float> x2);
+    auto compute_linear_kernel(boost::numeric::ublas::matrix<float> x1,
+                                boost::numeric::ublas::matrix<float> x2);
 };
 } // namespace svm
 

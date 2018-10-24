@@ -4,3 +4,4 @@ __pycache__/
 .localpython/
 env.json
 build/
+_install/

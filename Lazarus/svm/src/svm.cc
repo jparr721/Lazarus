@@ -24,17 +24,17 @@ namespace svm {
   SVM::SVM(
         const boost::numeric::ublas::matrix<float>& X,
         const boost::numeric::ublas::vector<float>& y,
-        int C) : _X(X), _y(y), _C(C) {};
+        int C) : _X(X), _y(y), _C(C){};
 
   /// Binarize the matrix to standardize the data into one
   /// group or another for more straightforward binary
   /// classification
   ///
   /// |param vector<float> *margins - The values in each margin
-  void SVM::binarize(boost::numeric::ublas::vector<float> *margins) {
-    for (unsigned int i = 0; i < *margins.size(); ++i) {
-       if (*margins(i) > 0) {
-          *margins(i) = 1;
+  void SVM::binarize(boost::numeric::ublas::vector<float>& margins) {
+    for (auto i = 0; i < margins.size(); ++i) {
+       if (margins (i) > 0) {
+          margins (i) = 1;
        }
     }
 
@@ -55,7 +55,7 @@ namespace svm {
     std::complex<int> _x1(x1);
     std::complex<int> _x2(x2);
 
-    return exp(- std::norm(x1 - x2)^2 / (2 * sigma ^ 2));
+    return exp(- pow(std::norm(x1 - x2), 2) / (2 * sigma ^ 2));
   }
 
   /// Computes the linear kernel between vectors x1 and x2
@@ -63,13 +63,13 @@ namespace svm {
   ///
   /// |param vector<float> x1 - The first vector
   /// |param vector<float> x2 - The second vector
-  float SVM::compute_linear_kernel(
-      boost::numeric::ublas::vector<float> x1,
-      boost::numeric::ublas::vector<float> x2
+  auto SVM::compute_linear_kernel(
+      boost::numeric::ublas::matrix<float> x1,
+      boost::numeric::ublas::matrix<float> x2
       ) {
-    float sim = 0.0;
+    /* float sim = 0.0; */
 
-    sim = x1 * x2;
+    auto sim = boost::numeric::ublas::element_prod(x1, x2);
 
     return sim;
   }
@@ -92,13 +92,13 @@ namespace svm {
       KernelFunction kf=KernelFunction::linear,
       int sigma = 0.1
       ) {
-    int m = this->X.size1();
-    int n = this->X.size2();
+    int m = this->_X.size1();
+    int n = this->_X.size2();
 
     // Change all occurances of 0 to -1 in Y
-    for (auto i = 0; i < this->Y.size(); ++i) {
-      if (this->Y(i) == 0) {
-        this->Y(i) = -1;
+    for (auto i = 0; i < this->_y.size(); ++i) {
+      if (this->_y(i) == 0) {
+        this->_y(i) = -1;
       }
     }
 
@@ -111,32 +111,23 @@ namespace svm {
     int H = 0;
     int b = 0;
 
-    // Our kernel function output
-    auto K;
-
     // TODO - Use openMP to calculate where appropriate
     // Pre compute our Kernel Matrix
     if (kf == KernelFunction::linear) {
       // Doing the vectorized implementation for a linear
       // kernel.
-      K = this->compute_linear_kernel(X, X);
+      auto K = this->compute_linear_kernel(_X, _X);
     } else if (kf == KernelFunction::gaussian) {
       // Doing the vectorized RBF kernel here.
 
-      for (int i = 0; i < m - 1; ++i) {
-        K = this->compute_gaussian_kernel(X(i), X(i + 1), sigma);
-      }
-    } else {
-      // Init K to be all zero
-      K = std::vector<int>(m, 0);
-
-      // Make this openMP supported
       for (int i = 0; i < m; ++i) {
         for (int j = 0; j < m; ++j) {
-          K[i][j] = this->compute_gaussian_kernel(K[i][j], K[j][i], sigma);
+          auto K = this->compute_gaussian_kernel(_X(i,j), _X(j, i), sigma);
         }
       }
     }
+
+    return 1.0;
   }
 
 } // namespace svm
