@@ -40,10 +40,8 @@ add_subdirectory(Lazarus/preprocessing)
 add_subdirectory(Lazarus/core)
 add_subdirectory(Lazarus/svm)
 
-target_link_libraries(LazarusCore LazarusCorePreprocessing)
-
 # Add targets to build tree
-export(TARGETS LazarusCore LazarusCoreNN LazarusCorePreprocessing LazarusCoreSVM
+export(TARGETS LazarusCore LazarusCoreNN LazarusCoreSVM
   FILE "${PROJECT_BINARY_DIR}/LazarusCoreTargets.cmake")
 
 export(PACKAGE LazarusCore)

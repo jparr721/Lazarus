@@ -2,7 +2,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_library(LazarusCoreNN SHARED
-  src/multi_layer_perceptron.cc
+  src/multilayer_perceptron.cc
 )
 
 target_link_libraries(LazarusCoreNN)
