@@ -1,13 +1,13 @@
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_library(LazarusCorePreprocessingOnehot SHARED
+add_library(LazarusCoreOneHot SHARED
   src/onehot.cc
 )
 
 #target_link_libraries(LazarusCorePreprocessingOnehot LazarusCorePreprocessing)
 
-target_include_directories(LazarusCorePreprocessingOnehot
+target_include_directories(LazarusCoreOneHot
   PUBLIC
     $<INSTALL_INTERFACE:include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -15,15 +15,15 @@ target_include_directories(LazarusCorePreprocessingOnehot
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-set_target_properties(LazarusCorePreprocessingOnehot PROPERTIES
+set_target_properties(LazarusCoreOneHot PROPERTIES
   VERSION 0.1.0
   SOVERSION 1
 )
 
 install(DIRECTORY include/ DESTINATION "${INSTALL_INCLUDE_DIR}")
 
-install(TARGETS LazarusCorePreprocessingOnehot
-  EXPORT LazarusCorePreprocessingTargets
+install(TARGETS LazarusCoreOneHot
+  EXPORT LazarusCoreTargets
   RUNTIME DESTINATION "${INSTALL_BIN_DIR}" COMPONENT bin
-  LIBRARY DESTINATION "${INSTALL_LIB_DIR}/Lazarus/preprocessing/onehot" COMPONENT shlib
+  LIBRARY DESTINATION "${INSTALL_LIB_DIR}/Lazarus/onehot" COMPONENT shlib
 )
