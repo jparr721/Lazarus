@@ -1,6 +1,10 @@
 # Documentation
 Documentation is added at sufficient milestones.
 
+## October 25th, 2018
+- For nn impl, you can check for overfitting to determine if it's actually learning.
+- Use a ADALINE to start
+
 ## October 3rd, 2018
 With the new and improved dataset I am getting an extremely high level of performance out of my algorithm. It is
 succeeding very well at what it does and has exhibited extremely high accuracy in both cases across multiple system
