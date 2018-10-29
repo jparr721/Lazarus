@@ -34,7 +34,8 @@ include_directories(
   "${PROJECT_BINARY_DIR}")
 
 add_subdirectory(Lazarus/neural_network)
-add_subdirectory(Lazarus/preprocessing)
+add_subdirectory(Lazarus/onehot)
+add_subdirectory(Lazarus/kfold)
 add_subdirectory(Lazarus/core)
 add_subdirectory(Lazarus/svm)
 
