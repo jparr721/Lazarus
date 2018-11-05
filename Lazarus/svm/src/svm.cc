@@ -127,6 +127,15 @@ namespace svm {
       }
     }
 
+    int dots = 12;
+    while (passes < max_passes) {
+      int num_changed_alphas = 0;
+
+      for (int i = 1; i < m; ++i) {
+        // Calculate Ei = f(x(i)) - y(i) using (2)
+        /* double E(i) = b + */
+      }
+    }
     return 1.0;
   }
 
