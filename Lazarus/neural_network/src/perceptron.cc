@@ -11,7 +11,7 @@
 #include <random>
 
 namespace neural_network {
-  Perceptron::Perceptron(float eta, int iter, int random_state, int data_size) : _W(data_size) {
+  Perceptron::Perceptron(float eta, int iter, int random_state, int data_size) : W(data_size) {
     this->eta = eta;
     this->iter = iter;
     this->random_state = random_state;
@@ -21,12 +21,17 @@ namespace neural_network {
     std::vector<std::vector<float>> X, std::vector<float> y) {
     for (int i = 0; i < this->iter; ++i) {
       int net_input = this->net_input(X);
-
+      auto output = this->activation(X);
+      this->errors.push_back(y - output);
     }
   }
 
+  auto Perceptron::activation(std::vector<std::vector<float>> X) {
+    return X;
+  }
+
   float Perceptron::net_input(std::vector<std::vector<float>> X) {
-    return std::inner_product(X, this->_W);
+    return std::inner_product(X, this->W);
   }
 
 } // namespace neural_network

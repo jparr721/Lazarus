@@ -133,8 +133,7 @@ namespace svm {
 
       for (int i = 1; i < m; ++i) {
         // Calculate Ei = f(x(i)) - y(i) using (2)
-        double
-        E(i) = b +
+        /* double E(i) = b + */
       }
     }
     return 1.0;

@@ -3,8 +3,6 @@
 #include <cmath>
 
 namespace neural_network {
-  MultiLayerPerceptron::MultiLayerPerceptron() {}
-
   /**
    * The sigmoid function computes the sigmoid
    * of a given input z
@@ -19,4 +17,5 @@ namespace neural_network {
    * Predict the label of an input
    * given a trained neural network
    *
+   */
 } // namespace neural_network

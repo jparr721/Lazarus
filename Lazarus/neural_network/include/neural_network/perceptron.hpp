@@ -16,11 +16,13 @@ class Perceptron {
     float predict(std::vector<std::vector<float>> X);
     std::tuple<std::vector<std::vector<float>>, std::vector<float>> fit(
         std::vector<std::vector<float>> X, std::vector<float> y);
+    // Linear activation function
+    auto activation(std::vector<std::vector<float>> X);
   private:
     float eta;
     int iter, random_state;
     std::vector<float> errors;
-    std::vector<float> _W;
+    std::vector<float> W;
     std::vector<float> cost;
 };
 } // namespace neural_network
