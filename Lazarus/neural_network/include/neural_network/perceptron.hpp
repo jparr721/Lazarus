@@ -7,23 +7,21 @@
 namespace neural_network {
 class Perceptron {
   public:
-    Perceptron(float eta, int iter, int random_state);
+    Perceptron(float eta, int iter, int random_state, int data_size);
     Perceptron(const Perceptron &p);
     ~Perceptron() = default;
 
-    std::vector<std::vector<float>>
-    float net_input(std::vector<std::vector<float>> X);
-    float predict(std::vector<std::vector<float>> X);
-    std::tuple<std::vector<std::vector<float>>, std::vector<float>> fit(
-        std::vector<std::vector<float>> X, std::vector<float> y);
+    float net_input(const std::vector<float>& X) const;
+    float predict(std::vector<float> X);
+    void fit(const std::vector<float>& X, const std::vector<float>& y);
     // Linear activation function
-    auto activation(std::vector<std::vector<float>> X);
+    std::vector<float> activation(const std::vector<float>& X) const;
   private:
     float eta;
     int iter, random_state;
     std::vector<float> errors;
     std::vector<float> W;
-    std::vector<float> cost;
+    std::vector<float> costs;
 };
 } // namespace neural_network
 
