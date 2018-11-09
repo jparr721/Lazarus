@@ -28,6 +28,7 @@ foreach(p LIB BIN INCLUDE CMAKE)
 endforeach()
 
 find_package(Boost 1.68.0 REQUIRED)
+find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 
 include_directories(
   "${PROJECT_SOURCE_DIR}"
