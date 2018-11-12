@@ -1,21 +1,30 @@
-#include <util/Util.hpp>
+#include <util/util.hpp>
 
+#include <cstdio>
+#include <cstring>
+#include <fstream>
+#include <iostream>
+#include <sstream>
 #include <stdexcept>
 
 namespace util {
-auto matrix_vector_calculation(
-    std::vector<std::vector<T>> matrix,
-    std::vector<T> vector,
-    op o) {
-  int cols = matrix[0].size();
-  if (cols != vector.size()) {
-    throw std::runtime_error(std::string("Dimension mismatch"));
-  }
+  std::vector<std::vector<float>> read_input_file(std::string filename) {
+    std::vector<std::vector<float>> input;
+    std::vector<float> record;
+    std::ifstream in(filename);
 
-  for (int i = 0; i < matrix.size(); ++i) {
-    for (int j = 0; j < matrix[i].size(); ++j) {
+    std::string row;
+    while (std::getline(in, row)) {
+      std::istringstream iss(row);
 
+      while (iss.good()) {
+        std::string value;
+        std::getline(iss, value, ',');
+        record.push_back(std::stof(value.c_str()));
+      }
+      input.push_back(record);
     }
+
+    return input;
   }
-}
 } // namespace util

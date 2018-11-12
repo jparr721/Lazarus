@@ -5,8 +5,6 @@ add_library(LazarusCoreOneHot SHARED
   src/onehot.cc
 )
 
-#target_link_libraries(LazarusCorePreprocessingOnehot LazarusCorePreprocessing)
-
 target_include_directories(LazarusCoreOneHot
   PUBLIC
     $<INSTALL_INTERFACE:include>
