@@ -2,15 +2,15 @@
 #define LAZARUS_UTIL_HPP
 
 #include <string>
+#include <vector>
 
 namespace util {
 
-template <typename T>
 class Util {
   public:
     Util() = default;
     ~Util() = default;
-    auto read_input_file(std::string filename);
+    std::vector<std::vector<float>> read_input_file(std::string filename);
 
   private:
 

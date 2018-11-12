@@ -7,7 +7,6 @@
  * main executable if it is desired to be run
  */
 
-namespace lazarus {
 class Lazarus {
   public:
     Lazarus() = default;
@@ -16,7 +15,6 @@ class Lazarus {
   private:
 
 };
-}
 
 
 #endif

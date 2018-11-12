@@ -1,38 +1,30 @@
-#include <util/Util.hpp>
+#include <util/util.hpp>
 
+#include <cstdio>
+#include <cstring>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
 
 namespace util {
-  auto read_input_file(std::string filename) {
-    std::vector<std::vector<std::string>> input;
-    std::vector<std::string> record;
+  std::vector<std::vector<float>> read_input_file(std::string filename) {
+    std::vector<std::vector<float>> input;
+    std::vector<float> record;
     std::ifstream in(filename);
 
-    while (in) {
-      std::string row;
-      if (!std::getline(in, row)) {
-        throw std::runtime_error(std::string("Unable to read file properly"));
-        break;
+    std::string row;
+    while (std::getline(in, row)) {
+      std::istringstream iss(row);
+
+      while (iss.good()) {
+        std::string value;
+        std::getline(iss, value, ',');
+        record.push_back(std::stof(value.c_str()));
       }
-
-      std::istringstream ss(row);
-
-      while (ss) {
-        std::string s;
-        if (!std::getline(row, s, ',')) {
-          throw std::runtime_error(std::string("Unable to read row of data"));
-          break;
-        }
-        record.push_back(s);
-      }
-
-      input.push_back(s);
+      input.push_back(record);
     }
-    if (!in.eof()) {
-      throw std::runtime_error(std::string("Error! Unable to read file, or it may not exist. Please check your file path");
-    }
+
+    return input;
   }
 } // namespace util

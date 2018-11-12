@@ -36,11 +36,12 @@ include_directories(
 add_subdirectory(Lazarus/neural_network)
 add_subdirectory(Lazarus/onehot)
 add_subdirectory(Lazarus/kfold)
-add_subdirectory(Lazarus/core)
+add_subdirectory(Lazarus/test)
 add_subdirectory(Lazarus/svm)
+add_subdirectory(Lazarus/util)
 
 # Add targets to build tree
-export(TARGETS LazarusCore LazarusCoreNN LazarusCoreSVM
+export(TARGETS LazarusCoreUtil LazarusCoreKFold LazarusCoreOneHot LazarusCoreNN LazarusCoreSVM
   FILE "${PROJECT_BINARY_DIR}/LazarusCoreTargets.cmake")
 
 export(PACKAGE LazarusCore)
