@@ -1,5 +1,4 @@
-#ifndef LAZARUS_HPP
-#define LAZARUS_HPP
+#pragma once
 
 /**
  * Lazarus core largely sits as a testbed for modules and
@@ -7,14 +6,9 @@
  * main executable if it is desired to be run
  */
 
-class Lazarus {
+class Test {
   public:
-    Lazarus() = default;
-    ~Lazarus() = default;
     float test_perceptron();
   private:
 
 };
-
-
-#endif

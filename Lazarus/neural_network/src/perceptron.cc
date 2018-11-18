@@ -4,7 +4,8 @@
  * The Adaptive Linear Neuron, also just called a Perceptron, is a basic
  * classifier and the foundation to most neural networks. It can be used
  * in places where a full multilayer network is not needed. This uses the
- * gradient descent and is therefore not the most optimum implementation.
+ * gradient descent algorithm and is therefore not the most
+ * optimum implementation for all cases and problems.
  *
  * Implemented by: Jarred Parr
  */

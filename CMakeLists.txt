@@ -36,7 +36,6 @@ include_directories(
 add_subdirectory(Lazarus/neural_network)
 add_subdirectory(Lazarus/onehot)
 add_subdirectory(Lazarus/kfold)
-add_subdirectory(Lazarus/test)
 add_subdirectory(Lazarus/svm)
 add_subdirectory(Lazarus/util)
 

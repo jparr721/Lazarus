@@ -1,10 +1,10 @@
-#include "test_perceptron.hpp"
-#include <neural_network/perceptron.hpp>
+#include <test/test.hpp>
+#include <lazarus/neural_network/perceptron.hpp>
 #include <util/util.hpp>
 
-float test_perceptron() {
-  /* util::Util u; */
-  /* neural_network::Perceptron *p = new neural_network::Perceptron(0.01, 10, 1, 50); */
+float Test::test_perceptron() {
+  util::Util u;
+  /* neural_network::Perceptron p(0.01, 10, 1, 50); */
 
   /* std::vector<std::vector<float>> data = u.read_input_file("../../../data/iris.data"); */
 
@@ -25,5 +25,7 @@ float test_perceptron() {
 }
 
 int main(int argc, char** argv) {
+  Test t;
+  t.test_perceptron();
   return EXIT_SUCCESS;
 }
