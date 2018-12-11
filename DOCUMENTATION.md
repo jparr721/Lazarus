@@ -1,6 +1,11 @@
 # Documentation
 Documentation is added at sufficient milestones.
 
+## December 11th, 2018
+With the simulation almost complete I have finally been able to look back towards how this device will run. I have
+also figured out how I would like to implement my hardware component. The codebase will undergo some pretty heavy
+changes over the next few weeks.
+
 ## October 25th, 2018
 - For nn impl, you can check for overfitting to determine if it's actually learning.
 - Use a ADALINE to start
