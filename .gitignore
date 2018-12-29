@@ -5,3 +5,4 @@ __pycache__/
 env.json
 build/
 _install/
+third_party/*
