@@ -3,6 +3,7 @@
 #include <Eigen/Dense>
 
 #include <tuple>
+#include <memory>
 
 
 class MultiLayerPerceptron {
@@ -11,9 +12,9 @@ class MultiLayerPerceptron {
         int n_hidden, int l2, int epochs, float eta, bool shuffle, int minibatch_size, int seed);
     ~MultiLayerPerceptron() = default;
 
-    float predict(Eigen::MatrixXf input_layer);
+    double predict(Eigen::MatrixXd input_layer);
     MultiLayerPerceptron& fit(
-        Eigen::MatrixXf X_train, Eigen::Vector1f y_train, Eigen::MatrixXf X_valid, Eigen::Vector1f y_valid);
+        Eigen::MatrixXd X_train, Eigen::MatrixXd y_train, Eigen::MatrixXd X_valid, Eigen::MatrixXd y_valid);
   private:
     float l2 = 0;
     float eta = 0.001;
@@ -25,10 +26,17 @@ class MultiLayerPerceptron {
 
     bool shuffle = true;
 
-    float sigmoid(float z);
-    float compute_cost(Eigen::Vector1d class_labels, Eigen::MatrixXf output);
+    template<typename MatrixDimensionalityType>
+    MatrixDimensionalityType sigmoid(MatrixDimensionalityType z);
+    float compute_cost(Eigen::Vector1d class_labels, Eigen::MatrixXd output);
 
-    std::tuple<float, float, float, float>
-      forward_propagate(Eigen::MatrixXf input_layer);
-    Eigen::MatrixXf onehot(Eigen::Vector1f class_labels, int n_classes);
+    Eigen::MatrixXd weights;
+    Eigen::VectorXd bias;
+
+    std::tuple<Eigen::VectorXd,
+               Eigen::VectorXd,
+               Eigen::VectorXd,
+               Eigen::VectorXd>
+    forward_propagate(Eigen::MatrixXd input_layer);
+    Eigen::MatrixXd onehot(Eigen::Vector1f class_labels, int n_classes);
 };
