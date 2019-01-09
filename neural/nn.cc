@@ -1,4 +1,4 @@
-#include <neural/nn.hh>
+#include <neural/nn.h>
 
 #include <cmath>
 #include <random>
@@ -26,7 +26,7 @@ double MultiLayerPerceptron::predict(Eigen::MatrixXd input_layer) {
              Eigen::VectorXd,
              Eigen::VectorXd,
              Eigen::VectorXd> propagated_ouput =
-  this->forward_propagate(input_layer);
+  forward_propagate(input_layer);
 
   Eigen::VectorXd z_output = std::get<2>(propagated_ouput);
 
@@ -40,16 +40,16 @@ std::tuple<Eigen::VectorXd,
            Eigen::VectorXd>
 MultiLayerPerceptron::forward_propagate(Eigen::MatrixXd input_layer) {
   // input_layer multiplied by all of our hidden layers
-  Eigen::VectorXd z_h = input_layer.dot(this->weights) + this->bias;
+  Eigen::VectorXd z_h = input_layer.dot(weights) + bias;
 
   // Calculate our activation of the net input layer
-  Eigen::VectorXd a_h = this->sigmoid(z_h);
+  Eigen::VectorXd a_h = sigmoid(z_h);
 
   // Calculate the net input of our output layer
-  Eigen::MatrixXd z_out = a_h.dot(this->weights) + this->bias;
+  Eigen::MatrixXd z_out = a_h.dot(weights) + bias;
 
   // Calculate sigmoid for continuous ouput
-  Eigen::MatrixXd a_out = this->sigmoid(z_out);
+  Eigen::MatrixXd a_out = sigmoid(z_out);
 
   // Return all of our values as specified in the vectorized nn
   return std::make_typle(z_h, a_h, z_out, a_out);
@@ -67,13 +67,13 @@ MultiLayerPerceptron& MultiLayerPerceptron::fit(
 
 
   // Initialize weights
-  this->bias = Eigen::VectorXd::Zeros(n_output);
+  bias = Eigen::VectorXd::Zeros(n_output);
   // Initialze weights as standard normal distribution
   // This prevents issues during optimization
-  this->weights = Eigen::MatrixXd(X_train.rows(), X_train.cols());
-  for (size_t i = 0u; i < this->weights.rows(); ++i) {
-    for (size_t j = 0u; j < this->weigts.cols(); ++j) {
-      this->weights(i, j) = dist(generator());
+  weights = Eigen::MatrixXd(X_train.rows(), X_train.cols());
+  for (size_t i = 0u; i < weights.rows(); ++i) {
+    for (size_t j = 0u; j < weigts.cols(); ++j) {
+      weights(i, j) = dist(generator());
     }
   }
 
@@ -84,7 +84,38 @@ MultiLayerPerceptron& MultiLayerPerceptron::fit(
     "valid_acc", {}
   };
 
-  Eigen::MatrixXd y_train_encoded = this->onehot<Eigen::MatrixXd>(y_train, n_output);
+  Eigen::MatrixXd y_train_encoded = onehot<Eigen::MatrixXd>(y_train, n_output);
 
-  // Begin backpropagation
+  // Begin backpropagation setup
+  for (int i = 0; i < epochs; ++i) {
+    Eigen::VectorXd indices;
+    if (!shuffle) {
+      // Initialize our index vector
+      for (int j = 0; j < X_train.rows(); ++j)
+        indices(j) = j;
+    } else {
+      indices::Random(X_train.rows());
+    }
+
+    for (int j = 0; j < indices.row(); ++j) {
+      int batch_idx = indices(j);
+
+      std::tuple<Eigen::VectorXd,
+                 Eigen::VectorXd,
+                 Eigen::VectorXd,
+                 Eigen::VectorXd> propagated_output = forward_propagate(X_train(batch_idx));
+
+      // Backpropagation
+      Eigen::VectorXd z_h = std::get<0>(propagated_output);
+      Eigen::VectorXd a_h = std::get<1>(propagated_output);
+      Eigen::VectorXd z_out = std::get<2>(propagated_output);
+      Eigen::VectorXd a_out = std::get<3>(propagated_output);
+
+      // Compute the error at each node at each layer
+      Eigen::VectorXd sigma_out = a_out - y_train_encoded[batch_idx];
+
+      Eigen::MatrixXd sigmoid_derivative_h = a_h * (1.0 - a_h);
+
+    }
+  }
 }

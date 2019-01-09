@@ -1,4 +1,5 @@
-#pragma once
+#ifndef NEURAL_NN_H
+#define NEURAL_NN_H
 
 #include <Eigen/Dense>
 
@@ -10,7 +11,6 @@ class MultiLayerPerceptron {
   public:
     MultiLayerPerceptron(
         int n_hidden, int l2, int epochs, float eta, bool shuffle, int minibatch_size, int seed);
-    ~MultiLayerPerceptron() = default;
 
     double predict(Eigen::MatrixXd input_layer);
     MultiLayerPerceptron& fit(
@@ -40,3 +40,5 @@ class MultiLayerPerceptron {
     forward_propagate(Eigen::MatrixXd input_layer);
     Eigen::MatrixXd onehot(Eigen::Vector1f class_labels, int n_classes);
 };
+
+#endif
