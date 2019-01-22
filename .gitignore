@@ -1,5 +1,5 @@
 Diabetes-Data/
-env/
+venv/
 __pycache__/
 .localpython/
 env.json
