@@ -58,13 +58,13 @@ class DataModel:
         sess - The tensorflow session that is currently running
         '''
         return sess.run(self._logits, feed_dict={self.states:
-            state.reshape(1, self.num_states}))
+                        state.reshape(1, self._num_states)})
 
     def predict_batch(self, states, sess):
         '''
-        predict_batch predicts an entire batch of outputs when given a >1 dimensional
-        number of input states. This is used to perform batch evaluation
-        of Q and Q' values during training.
+        predict_batch predicts an entire batch of outputs when given a >1
+        dimensional number of input states. This is used to perform batch
+        evaluation of Q and Q' values during training.
 
         Paraeters
         ---------
@@ -87,3 +87,19 @@ class DataModel:
         return sess.run(
                 self._optimizer, feed_dict={
                     self._states: x_batch, self._q_s_a: y_batch})
+
+    @property
+    def num_states(self):
+        return self._num_states
+
+    @property
+    def num_actions(self):
+        return self._num_actions
+
+    @property
+    def batch_size(self):
+        return self._batch_size
+
+    @property
+    def initialize(self):
+        return self._initialize
