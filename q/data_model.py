@@ -1,3 +1,6 @@
+# Copyright 2018 Grand Valley State University DEN Lab. All Rights Reserved
+#==============================================================================
+
 import tensorflow as tf
 import numpy as np
 import pandas as pd
