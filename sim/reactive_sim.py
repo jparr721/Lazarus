@@ -38,7 +38,7 @@ patient = T1DPatient.withName('adolescent#001')
 sensor = CGMSensor.withName('Dexcom', seed=1)
 pump = InsulinPump.withName('Insulet')
 # custom scenario is a list of tuples (time, meal_size)
-scen = [(7, 45), (12, 70), (16, 15), (18, 80), (23, 10)]
+scen = [(7, 225), (12, 70), (16, 15), (18, 80), (23, 10)]
 scenario = CustomScenario(start_time=start_time, scenario=scen)
 env = T1DSimEnv(patient, sensor, pump, scenario)
 
