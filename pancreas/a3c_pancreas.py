@@ -26,7 +26,7 @@ parser.add_argument('--max-eps', default=1000, type=int,
                     help='Global maximum number of episodes to run.')
 parser.add_argument('--gamma', default=0.99,
                     help='Discount factor of rewards.')
-parser.add_argument('--save-dir', default='/tmp/', type=str,
+parser.add_argument('--save-dir', default='/trained', type=str,
                     help='Directory in which you desire to save the model.')
 args = parser.parse_args()
 
@@ -59,6 +59,40 @@ class ActorCriticModel(keras.Model):
         return logits, values
 
 
+def record(episode,
+           episode_reward,
+           worker_idx,
+           global_ep_reward,
+           result_queue,
+           total_loss,
+           num_steps):
+    """Helper function to store score and print statistics.
+    Arguments:
+    episode: Current episode
+    episode_reward: Reward accumulated over the current episode
+    worker_idx: Which thread (worker)
+    global_ep_reward: The moving average of the global reward
+    result_queue: Queue storing the moving average of the scores
+    total_loss: The total loss accumualted over the current episode
+    num_steps: The number of steps the episode took to complete
+    """
+    if global_ep_reward == 0:
+        global_ep_reward = episode_reward
+    else:
+        global_ep_reward = global_ep_reward * 0.99 + episode_reward * 0.01
+    print(
+      f"Episode: {episode} | "
+      f"Moving Average Reward: {int(global_ep_reward)} | "
+      f"Episode Reward: {int(episode_reward)} | "
+      f"Loss: {int(total_loss / float(num_steps) * 1000) / 1000} | "
+      f"Steps: {num_steps} | "
+      f"Worker: {worker_idx}"
+    )
+
+    result_queue.put(global_ep_reward)
+    return global_ep_reward
+
+
 class MasterAgent():
     register(
         id='simglucose-adolescent2-v0',
@@ -74,20 +108,19 @@ class MasterAgent():
 
         env = gym.make(self.game_name)
         self.state_size = env.observation_space.shape[0]
-        self.action_size = env.action_space.n
+        self.action_size = env.action_space.shape[0]
         self.opt = tf.train.AdamOptimizer(args.lr, use_locking=True)
         print(self.state_size, self.action_size)
 
         # Our global network
         self.global_model = ActorCriticModel(self.state_size, self.action_size)
-        self.global_model(
-                tf.convert_to_tensor(np.random.random(
-                    1, self.state_size)), dtype=tf.float32)
+        self.global_model(tf.convert_to_tensor(np.random.random(
+            (1, self.state_size)), dtype=tf.float32))
 
     def train(self):
         if args.algorithm == 'random':
             random_agent = RandomAgent(self.game_name, args.max_eps)
-            rando_agent.run()
+            random_agent.run()
             return
 
         res_queue = Queue()
@@ -120,6 +153,35 @@ class MasterAgent():
         plt.savefig(os.path.join(self.save_dir,
                     '{} Moving Average.png'.format(self.game_name)))
         plt.show()
+
+    def play(self):
+        env = gym.make(self.game_name).unwrapped
+        state = env.reset()
+        model = self.global_model
+        model_path = os.path.join(
+                self.save_dir, 'model_{}.h5'.format(self.game_name))
+        print('Loading model from: {}'.format(model_path))
+        model.load_weights(model_path)
+        done = False
+        step_counter = 0
+        reward_sum = 0
+
+        try:
+            while not done:
+                env.render(mode='rgb_array')
+                policy, value = model(
+                        tf.convert_to_tensor(state[None, :], dtype=tf.float32))
+                policy = tf.nn.softmax(policy)
+                action = np.argmax(policy)
+                state, reward, done, _ = env.step(action)
+                reward_sum += reward
+                print("{}. Reward: {}, action: {}".format(
+                    step_counter, reward_sum, action))
+                step_counter += 1
+        except KeyboardInterrupt:
+            print("Received Keyboard Interrupt. Shutting down.")
+        finally:
+            env.close()
 
 
 class RandomAgent:
@@ -191,7 +253,7 @@ class Worker(threading.Thread):
                  opt,
                  result_queue,
                  idx,
-                 game_name = 'simglucose-adolescent2-v0',
+                 game_name='simglucose-adolescent2-v0',
                  save_dir='./trained'):
         super(Worker, self).__init__()
         self.state_size = state_size
@@ -205,7 +267,6 @@ class Worker(threading.Thread):
         self.env = gym.make(self.game_name).unwrapped
         self.save_dir = save_dir
         self.ep_loss = 0.0
-
 
     def run(self):
         total_step = 1
