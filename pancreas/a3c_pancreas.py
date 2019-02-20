@@ -35,9 +35,11 @@ class ActorCriticModel(keras.Model):
     def __init__(self, state_size, action_size):
         super(ActorCriticModel, self).__init__()
         self.state_size = state_size
-        self.action_size = action_size
+        self.action_size = action_size[0]\
+            if type(action_size) == tuple else action_size
+        print('BRO: {}'.format(type(self.action_size)))
         self.dense1 = layers.Dense(100, activation='relu')
-        self.policy_logits = layers.Dense(action_size)
+        self.policy_logits = layers.Dense(self.action_size)
         self.dense2 = layers.Dense(100, activation='relu')
         self.values = layers.Dense(1)
 
