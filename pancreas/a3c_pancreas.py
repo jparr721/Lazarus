@@ -172,7 +172,8 @@ class MasterAgent():
             while not done:
                 env.render(mode='rgb_array')
                 policy, value = model(
-                        tf.convert_to_tensor(state[None, :], dtype=tf.float32))
+                        tf.convert_to_tensor(
+                            getattr(state, 'CGM'), dtype=tf.float32))
                 policy = tf.nn.softmax(policy)
                 action = np.argmax(policy)
                 state, reward, done, _ = env.step(action)
@@ -285,7 +286,7 @@ class Worker(threading.Thread):
 
             while not done:
                 logits, _ = self.local_model(
-                        tf.convert_to_tensor(current_state[None, :],
+                        tf.convert_to_tensor(getattr(current_state, 'CGM'),
                                              dtype=tf.float32))
                 probs = tf.nn.softmax(logits)
 
