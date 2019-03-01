@@ -51,7 +51,42 @@ class Agent():
         with torch.no_grad():
             action_values = self.local_network(state)
         self.local_network.train()
+        # Epsilon-Greedy calculation
+        if random.random() > eps:
+            return np.argmax(action_values.cpu().data.numpy())
+        else:
+            return random.choice(np.arange(self.action_size))
 
+    def learn(self, experiences, gamma):
+        states, actions, rewards, next_states, dones = experiences
+
+        # Get best Q values for the target model
+        Q_targets_next = self.target_network(next_states). \
+            detach().max(1)[0].unsqueeze(1)
+        # Compute the Q targets for the current states
+        Q_targets = rewards + (gamma * Q_targets_next * (1 - dones))
+
+        # Get expected Q values from local model
+        Q_expected = self.local_network(states).gather(1, actions)
+
+        # Compute loss
+        loss = F.mse_loss(Q_expected, Q_targets)
+        # Minimize loss
+        self.optimizer.zero_grad()
+        loss.backward()
+        self.optimizer.step()
+
+        self.soft_update(self.local_network, self.target_network, TAU)
+
+    def soft_update(self, local_model, target_model, tau):
+        '''
+        Soft update model parameters
+        theta_target = tau * theta_local + (1 - tau) * theta_target
+        '''
+        for target_param, local_param in zip(
+                target_model.parameters(), local_model.parameters()):
+            target_param.data.copy_(tau * local_param.data +
+                                    (1.0 - tau) * target_param.data)
 
 
 class ReplayBuffer:
