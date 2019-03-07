@@ -56,5 +56,39 @@ def dqn(n_episodes=2000,
     eps = eps_start
 
     for i_ep in range(1, n_episodes + 1):
-        pass
+        state = env.reset()
+        score = 0
+        for t in range(max_t):
+            action = agent.act(np.array(state[0]), eps)
+            next_state, reward, done, _ = env.step(action)
+            agent.step(state, action, reward, next_state, done)
+            state = next_state
+            score += reward
+            if done:
+                break
+        scores_window.append(score)
+        scores.append(score)
+        eps = max(eps_end, eps_decay * eps)
+        print('\rEpisode {}\tAverage Score: {:.2f}'.format(
+            i_ep, np.mean(scores_window)), end="")
+        if i_ep % 100 == 0:
+            print('\rEpisode {}\tAverage Score: {:.2f}'.format(
+                i_ep, np.mean(scores_window)))
+        if np.mean(scores_window) >= 200.0:
+            print(
+                '\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'
+                .format(i_ep-100, np.mean(scores_window)))
+            torch.save(agent.qnetwork_local.state_dict(), 'checkpoint.pth')
+            break
+    return scores
 
+
+scores = dqn()
+
+# plot the scores
+fig = plt.figure()
+ax = fig.add_subplot(111)
+plt.plot(np.arange(len(scores)), scores)
+plt.ylabel('Score')
+plt.xlabel('Episode #')
+plt.show()
