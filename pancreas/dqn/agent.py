@@ -47,6 +47,7 @@ class Agent():
 
     def act(self, state, eps=0.):
         state = torch.from_numpy(state).float().unsqueeze(0).to(device)
+        # Set the network to training mode
         self.local_network.eval()
         with torch.no_grad():
             action_values = self.local_network(state)

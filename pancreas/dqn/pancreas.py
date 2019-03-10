@@ -7,6 +7,7 @@ import numpy as np
 from collections import deque
 import matplotlib.pyplot as plt
 from agent import Agent
+import sys
 register(
         id='simglucose-adolescent2-v0',
         entry_point='simglucose.envs:T1DSimEnv',

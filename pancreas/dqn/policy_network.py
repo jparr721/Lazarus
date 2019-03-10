@@ -33,7 +33,7 @@ class PolicyNetwork(nn.Module):
         '''
         x = F.relu(self.l1(x))
         x = F.relu(self.l2(x))
-        x = F.relu(self.l3(x))
+        x = self.l3(x)
 
         return x
 
