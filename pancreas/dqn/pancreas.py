@@ -1,13 +1,10 @@
 import gym
-from gym import spaces
 from gym.envs.registration import register
-import random
 import torch
 import numpy as np
 from collections import deque
 import matplotlib.pyplot as plt
 from agent import Agent
-import sys
 register(
         id='simglucose-adolescent2-v0',
         entry_point='simglucose.envs:T1DSimEnv',

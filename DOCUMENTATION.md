@@ -1,6 +1,9 @@
 # Documentation
 Documentation is added at sufficient milestones.
 
+## March 12th, 2018
+The deep q model is now running and producing results. Woo!
+
 ## December 11th, 2018
 With the simulation almost complete I have finally been able to look back towards how this device will run. I have
 also figured out how I would like to implement my hardware component. The codebase will undergo some pretty heavy
@@ -56,11 +59,12 @@ https://www.webmd.com/diabetes/guide/drinking-alcohol
 ### NIDDK - National Institude of Diabetes and Digestive and Kidney Diseases
 https://www.niddk.nih.gov/health-information/diabetes/overview/preventing-problems/heart-disease-stroke
 
-### Pima Indians Database
+### UCI MAchine Learning
+#### Pima Indians Database
 This dataset is originally from the National Institute of Diabetes and Digestive and Kidney Diseases.
 The purposes of it for my research are to use it as a base training point as well as springboard for further
 experimentation with my algorithms.
 
-### Sebastian Raschka
+### Dr. Sebastian Raschka
 I used some code samples as shown in his "Python Machine Learning, Second Edition" book for a few small data
-visualization things. Most code is mine however small parts of functions contain code that came from this book.
+visualization things.

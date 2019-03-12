@@ -116,7 +116,8 @@ class ReplayBuffer:
         actions = torch.from_numpy(np.vstack([
             e.action for e in experiences if e is not None])).long().to(device)
         rewards = torch.from_numpy(np.vstack([
-            e.reward for e in experiences if e is not None])).float().to(device)
+            e.reward for e in experiences if e is not None]))\
+            .float().to(device)
         next_states = torch.from_numpy(np.vstack([
             e.next_state
             for e in experiences if e is not None])).float().to(device)
@@ -127,6 +128,5 @@ class ReplayBuffer:
 
         return (states, actions, rewards, next_states, dones)
 
-    @property
     def __len__(self):
         return len(self.memory)

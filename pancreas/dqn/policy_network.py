@@ -48,4 +48,4 @@ class PolicyNetwork(nn.Module):
         # x = self.thru_layers(x)
         # action_scores = self.action_head(x)
         # return F.softmax(action_scores, dim=-1)
-        return self.forward(x)
+        return self.thru_layers(x)
