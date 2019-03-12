@@ -20,14 +20,14 @@ print('Number of actions: {}'.format(env.action_space.shape[0]))
 agent = Agent(state_size=1, action_size=1, seed=0)
 
 # Watch the untrained agent
-state = env.reset()
-for i in range(200):
-    action = agent.act(np.array(state[0]))
-    env.render()
-    state, reward, done, _ = env.step(action)
-    if done:
-        break
-env.close()
+# state = env.reset()
+# for i in range(200):
+#     action = agent.act(np.array(state[0]))
+#     env.render()
+#     state, reward, done, _ = env.step(action)
+#     if done:
+#         break
+# env.close()
 
 
 def dqn(n_episodes=2000,
@@ -81,7 +81,7 @@ def dqn(n_episodes=2000,
     return scores
 
 
-scores = dqn()
+scores = dqn(2000, 1000, 0.9, 0.01, 0.90)
 
 # plot the scores
 fig = plt.figure()
@@ -90,3 +90,17 @@ plt.plot(np.arange(len(scores)), scores)
 plt.ylabel('Score')
 plt.xlabel('Episode #')
 plt.show()
+
+# load the weights from file
+agent.local_network.load_state_dict(torch.load('checkpoint.pth'))
+
+for i in range(3):
+    state = env.reset()
+    for j in range(200):
+        action = agent.act(np.array(state[0]))
+        env.render()
+        state, reward, done, _ = env.step(action)
+        if done:
+            break
+
+env.close()
