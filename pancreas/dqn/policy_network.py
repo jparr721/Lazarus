@@ -14,7 +14,7 @@ class PolicyNetwork(nn.Module):
         self.seed = torch.manual_seed(seed)
         self.l1 = nn.Linear(state_size, 64)
         self.l2 = nn.Linear(64, 64)
-        self.l3 = nn.Linear(64, action_size)
+        self.l3 = nn.Linear(64, 64)
 
     def get_state_value(self, x):
         x = self.thru_layers(x)

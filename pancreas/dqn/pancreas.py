@@ -81,7 +81,7 @@ def dqn(n_episodes=2000,
     return scores
 
 
-scores = dqn(2000, 1000, 0.9, 0.01, 0.90)
+scores = dqn(2000, 1000, 1.0, 0.01, 0.80)
 
 # plot the scores
 fig = plt.figure()
