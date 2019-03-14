@@ -15,6 +15,10 @@ class PolicyNetwork(nn.Module):
         self.l1 = nn.Linear(state_size, 64)
         self.l2 = nn.Linear(64, 64)
         self.l3 = nn.Linear(64, 64)
+        self.l4 = nn.Linear(64, 128)
+        self.l5 = nn.Linear(128, 256)
+        self.l6 = nn.Linear(256, 512)
+        self.l7 = nn.Linear(512, 1024)
 
     def get_state_value(self, x):
         x = self.thru_layers(x)
@@ -33,7 +37,11 @@ class PolicyNetwork(nn.Module):
         '''
         x = F.relu(self.l1(x))
         x = F.relu(self.l2(x))
-        x = self.l3(x)
+        x = F.relu(self.l3(x))
+        x = F.relu(self.l4(x))
+        x = F.relu(self.l5(x))
+        x = F.relu(self.l6(x))
+        x = F.relu(self.l7(x))
 
         return x
 
