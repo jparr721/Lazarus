@@ -72,7 +72,7 @@ def dqn(n_episodes=2000,
         if i_ep % 100 == 0:
             print('\rEpisode {}\tAverage Score: {:.2f}'.format(
                 i_ep, np.mean(scores_window)))
-        if np.mean(scores_window) >= 200.0:
+        if np.mean(scores_window) >= 100.0:
             print(
                 '\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'
                 .format(i_ep-100, np.mean(scores_window)))
@@ -81,7 +81,7 @@ def dqn(n_episodes=2000,
     return scores
 
 
-scores = dqn(2000, 1000, 0.9, 0.01, 0.90)
+scores = dqn(2000, 1000, 1.0, 0.01, 0.95)
 
 # plot the scores
 fig = plt.figure()
