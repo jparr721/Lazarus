@@ -53,7 +53,4 @@ class PolicyNetwork(nn.Module):
         ------
         x - Our input feature vector
         '''
-        # x = self.thru_layers(x)
-        # action_scores = self.action_head(x)
-        # return F.softmax(action_scores, dim=-1)
-        return self.thru_layers(x)
+        return F.softmax(self.thru_layers(x), dim=-1)

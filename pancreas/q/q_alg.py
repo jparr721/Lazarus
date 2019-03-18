@@ -67,6 +67,7 @@ def q_test(Q, eps=100):
             action = np.argmax(Q[state])
 
             state, reward, done, _ = env.step(action)
+            state = int(state[0])
 
             if reward == -10:
                 penalties += 1
@@ -74,13 +75,12 @@ def q_test(Q, eps=100):
         total_penalties += penalties
         total_epochs += epochs
 
-    env.render()
-
     print(f'Results after {eps} eps')
     print(f'Average steps per ep: {total_epochs/eps}')
     print(f'Average penalties per ep: {total_penalties/eps}')
+    env.render()
 
 
 if __name__ == '__main__':
-    q_train()
-    q_test()
+    Q = q_train()
+    q_test(Q)

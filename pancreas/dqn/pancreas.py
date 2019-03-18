@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import gym
 from gym.envs.registration import register
 import torch
@@ -17,7 +19,7 @@ env.seed(0)
 print('State shape: {}'.format(env.observation_space.shape[0]))
 print('Number of actions: {}'.format(env.action_space.shape[0]))
 
-agent = Agent(state_size=1, action_size=1, seed=0)
+agent = Agent(state_size=4, action_size=2, seed=0)
 
 # Watch the untrained agent
 # state = env.reset()

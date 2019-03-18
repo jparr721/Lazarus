@@ -15,6 +15,7 @@ UPDATE_EVERY = 4        # How often to update the network
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
+
 class Agent():
     def __init__(self, state_size, action_size, seed):
         self.state_size = state_size
