@@ -15,7 +15,7 @@ env = gym.make('simglucose-adolescent2-v0')
 def q_train(eps=2000, gamma=0.8, eta=0.8, max_t=1000):
     env.reset()
 
-    Q = np.zeros([359, 2])
+    Q = np.zeros([20, 2])
 
     # Params
     reward_list = []
@@ -23,15 +23,15 @@ def q_train(eps=2000, gamma=0.8, eta=0.8, max_t=1000):
     for i in range(eps):
         print(f'Episode {i} out of {eps} total')
         state = env.reset()
-        state = int(state[0])
+        state = int(state[0]) % 20
         r_all = 0
         for j in range(max_t):
             action = np.argmax(
-                    Q[int(state), :] + np.random.randn(1, 2) * (1./(i + 1)))
+                    Q[state, :] + np.random.randn(1, 2) * (1./(i + 1)))
 
             # Get new state & reward
             next_state, reward, done, _ = env.step(action)
-            next_state = int(next_state[0])
+            next_state = int(next_state[0]) % 20
 
             # Update Q table
             Q[state, action] = Q[state, action] + \
@@ -59,7 +59,7 @@ def q_test(Q, eps=100):
     for i in range(eps):
         print(f'Episode {i} out of {eps} total')
         state = env.reset()
-        state = int(state[0])
+        state = int(state[0]) % 20
         epochs, penalties, reward = 0, 0, 0
         done = False
 
@@ -67,7 +67,7 @@ def q_test(Q, eps=100):
             action = np.argmax(Q[state])
 
             state, reward, done, _ = env.step(action)
-            state = int(state[0])
+            state = int(state[0]) % 20
 
             if reward == -10:
                 penalties += 1
