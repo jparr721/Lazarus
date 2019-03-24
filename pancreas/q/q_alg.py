@@ -11,11 +11,17 @@ register(
         )
 env = gym.make('simglucose-adolescent2-v0')
 
+bin_size = 20
+
+
+def normalize_to_int(bin_size, value):
+    return int(value) % bin_size
+
 
 def q_train(eps=2000, gamma=0.8, eta=0.8, max_t=1000):
     env.reset()
 
-    Q = np.zeros([20, 2])
+    Q = np.zeros([bin_size, 2])
 
     # Params
     reward_list = []
@@ -23,7 +29,7 @@ def q_train(eps=2000, gamma=0.8, eta=0.8, max_t=1000):
     for i in range(eps):
         print(f'Episode {i} out of {eps} total')
         state = env.reset()
-        state = int(state[0]) % 20
+        state = normalize_to_int(bin_size, state)
         r_all = 0
         for j in range(max_t):
             action = np.argmax(
@@ -31,7 +37,7 @@ def q_train(eps=2000, gamma=0.8, eta=0.8, max_t=1000):
 
             # Get new state & reward
             next_state, reward, done, _ = env.step(action)
-            next_state = int(next_state[0]) % 20
+            next_state = normalize_to_int(bin_size, next_state[0])
 
             # Update Q table
             Q[state, action] = Q[state, action] + \

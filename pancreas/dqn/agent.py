@@ -51,6 +51,7 @@ class Agent():
         self.local_network.eval()
         with torch.no_grad():
             action_values = self.local_network(state)
+
         self.local_network.train()
         # Epsilon-Greedy calculation
         if random.random() > eps:
