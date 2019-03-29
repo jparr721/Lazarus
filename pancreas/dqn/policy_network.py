@@ -12,21 +12,18 @@ class PolicyNetwork(nn.Module):
 
         # Our neural net layers
         self.seed = torch.manual_seed(seed)
-        self.l1 = nn.Linear(state_size, 32)
-        self.l2 = nn.Linear(32, 32)
-        self.l3 = nn.Linear(32, action_size)
+        self.l1 = nn.Linear(state_size, 64)
+        self.l2 = nn.Linear(64, 64)
+        self.l3 = nn.Linear(64, action_size)
 
     def thru_layers(self, x):
         '''
         Applies Rectified Linear Units to each layer of the
         network
         '''
-        # x = F.relu(self.l1(x))
-        # x = F.relu(self.l2(x))
-        # x = F.relu(self.l3(x))
-        x = self.l1(x)
-        x = self.l2(x)
-        x = self.l3(x)
+        x = F.relu(self.l1(x))
+        x = F.relu(self.l2(x))
+        x = F.relu(self.l3(x))
         # x = F.relu(self.l4(x))
         # x = F.relu(self.l5(x))
         # x = F.relu(self.l6(x))

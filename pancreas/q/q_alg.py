@@ -4,10 +4,21 @@ import gym
 from gym.envs.registration import register
 import numpy as np
 
+
+def custom_reward(BG_last_hour):
+    if BG_last_hour[-1] > 180:
+        return -2
+    elif BG_last_hour[-1] < 70:
+        return -4
+    else:
+        return 2
+
+
 register(
         id='simglucose-adolescent2-v0',
         entry_point='simglucose.envs:T1DSimEnv',
-        kwargs={'patient_name': 'adolescent#002'}
+        kwargs={'patient_name': 'adolescent#002',
+                'reward_fun': custom_reward}
         )
 env = gym.make('simglucose-adolescent2-v0')
 
@@ -18,7 +29,7 @@ def normalize_to_int(bin_size, value):
     return int(value) % bin_size
 
 
-def q_train(eps=2000, gamma=0.8, eta=0.8, max_t=1000):
+def q_train(eps=1000, gamma=0.9, eta=0.8, max_t=1000):
     env.reset()
 
     Q = np.zeros([bin_size, 2])
@@ -29,7 +40,7 @@ def q_train(eps=2000, gamma=0.8, eta=0.8, max_t=1000):
     for i in range(eps):
         print(f'Episode {i} out of {eps} total')
         state = env.reset()
-        state = normalize_to_int(bin_size, state)
+        state = normalize_to_int(bin_size, state[0])
         r_all = 0
         for j in range(max_t):
             action = np.argmax(
@@ -54,9 +65,13 @@ def q_train(eps=2000, gamma=0.8, eta=0.8, max_t=1000):
     env.render()
 
     print('Reward sum for all eps: {}'.format(sum(reward_list)/eps))
-    print('Final Q Table Vals: {}'.format(Q))
+    print('Final Q Table Vals: \n{}'.format(Q))
 
     return Q
+
+
+def multi_train():
+    pass
 
 
 def q_test(Q, eps=100):

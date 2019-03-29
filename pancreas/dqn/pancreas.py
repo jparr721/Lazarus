@@ -7,10 +7,22 @@ import numpy as np
 from collections import deque
 import matplotlib.pyplot as plt
 from agent import Agent
+
+
+def custom_reward(BG_last_hour):
+    if BG_last_hour[-1] > 200:
+        return -1
+    elif BG_last_hour[-1] < 65:
+        return -2
+    else:
+        return 1
+
+
 register(
         id='simglucose-adolescent2-v0',
         entry_point='simglucose.envs:T1DSimEnv',
-        kwargs={'patient_name': 'adolescent#002'}
+        kwargs={'patient_name': 'adolescent#002',
+                'reward_fun': custom_reward}
         )
 
 # Initialize our simulation
@@ -19,7 +31,7 @@ env.seed(0)
 print('State shape: {}'.format(env.observation_space.shape[0]))
 print('Number of actions: {}'.format(env.action_space.shape[0]))
 
-agent = Agent(state_size=360, action_size=2, seed=0)
+agent = Agent(state_size=1, action_size=2, seed=0)
 
 # Watch the untrained agent
 # state = env.reset()
@@ -74,11 +86,11 @@ def dqn(n_episodes=2000,
         if i_ep % 100 == 0:
             print('\rEpisode {}\tAverage Score: {:.2f}'.format(
                 i_ep, np.mean(scores_window)))
-        if np.mean(scores_window) >= 100.0:
+        if np.mean(scores_window) >= 200.0:
             print(
                 '\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'
                 .format(i_ep-100, np.mean(scores_window)))
-            torch.save(agent.qnetwork_local.state_dict(), 'checkpoint.pth')
+            torch.save(agent.local_network.state_dict(), 'checkpoint.pth')
             break
     return scores
 
@@ -100,9 +112,9 @@ for i in range(3):
     state = env.reset()
     for j in range(200):
         action = agent.act(np.array(state[0]))
-        env.render()
         state, reward, done, _ = env.step(action)
         if done:
             break
+    env.render()
 
 env.close()
