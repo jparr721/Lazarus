@@ -10,12 +10,16 @@ from agent import Agent
 
 
 def custom_reward(BG_last_hour):
-    if BG_last_hour[-1] > 200:
-        return -1
-    elif BG_last_hour[-1] < 65:
-        return -2
+    if BG_last_hour[-1] > 150:
+        return 40
+    elif BG_last_hour[-1] > 200:
+        return 70
+    elif BG_last_hour[-1] < 75:
+        return 5
+    elif BG_last_hour[-1] < 35:
+        return 20
     else:
-        return 1
+        return -10
 
 
 register(
@@ -86,16 +90,17 @@ def dqn(n_episodes=2000,
         if i_ep % 100 == 0:
             print('\rEpisode {}\tAverage Score: {:.2f}'.format(
                 i_ep, np.mean(scores_window)))
-        if np.mean(scores_window) >= 200.0:
-            print(
-                '\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'
-                .format(i_ep-100, np.mean(scores_window)))
-            torch.save(agent.local_network.state_dict(), 'checkpoint.pth')
-            break
+        # if np.mean(scores_window) >= 200.0:
+        #     print(
+        #         '\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'
+        #         .format(i_ep-100, np.mean(scores_window)))
+        #     torch.save(agent.local_network.state_dict(), 'checkpoint.pth')
+        #     break
+    torch.save(agent.local_network.state_dict(), 'checkpoint.pth')
     return scores
 
 
-scores = dqn(2000, 1000, 1.0, 0.01, 0.95)
+scores = dqn(2000, 100000000000, 10.0, 0.01, 0.95)
 
 # plot the scores
 fig = plt.figure()
@@ -110,11 +115,11 @@ agent.local_network.load_state_dict(torch.load('checkpoint.pth'))
 
 for i in range(3):
     state = env.reset()
-    for j in range(200):
+    for j in range(10000000):
+        env.render()
         action = agent.act(np.array(state[0]))
         state, reward, done, _ = env.step(action)
         if done:
             break
-    env.render()
 
 env.close()

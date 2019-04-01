@@ -7,11 +7,11 @@ import numpy as np
 
 def custom_reward(BG_last_hour):
     if BG_last_hour[-1] > 180:
-        return -2
+        return -1
     elif BG_last_hour[-1] < 70:
         return -4
     else:
-        return 2
+        return 1
 
 
 register(
@@ -22,7 +22,7 @@ register(
         )
 env = gym.make('simglucose-adolescent2-v0')
 
-bin_size = 20
+bin_size = 4
 
 
 def normalize_to_int(bin_size, value):
@@ -33,6 +33,7 @@ def q_train(eps=1000, gamma=0.9, eta=0.8, max_t=1000):
     env.reset()
 
     Q = np.zeros([bin_size, 2])
+    print(f'max_t is {max_t}')
 
     # Params
     reward_list = []
@@ -79,8 +80,10 @@ def q_test(Q, eps=100):
 
     for i in range(eps):
         print(f'Episode {i} out of {eps} total')
+        if i % 10 == 0:
+            env.render()
         state = env.reset()
-        state = int(state[0]) % 20
+        state = int(state[0]) % bin_size
         epochs, penalties, reward = 0, 0, 0
         done = False
 
@@ -88,7 +91,7 @@ def q_test(Q, eps=100):
             action = np.argmax(Q[state])
 
             state, reward, done, _ = env.step(action)
-            state = int(state[0]) % 20
+            state = int(state[0]) % bin_size
 
             if reward == -10:
                 penalties += 1
@@ -99,9 +102,32 @@ def q_test(Q, eps=100):
     print(f'Results after {eps} eps')
     print(f'Average steps per ep: {total_epochs/eps}')
     print(f'Average penalties per ep: {total_penalties/eps}')
-    env.render()
 
 
 if __name__ == '__main__':
-    Q = q_train()
+    Q = q_train(max_t=100000000)
+    # Q
+    '''
+    79 reward
+    Q = [[ 2.64343710, 0.]
+         [ 1.76128000, 3000.03584127]
+         [ 3000.03722093,-2.46272000]
+         [ 3000.03502982, 0.]
+         [ 0., 3000.03723685]
+         [ 3000.03737494, 0.]
+         [ 3000.03452541, 1.02400000]
+         [-2.40000000, 3000.03719000]
+         [ 3000.03572769, .8]
+         [ 0., 3000.03461056]
+         [ 3000.03744561, 0.]
+         [ 0., 3000.03717848]
+         [ 3000.03783949, 0.]
+         [ 3000.03531968,-2.62400000]
+         [ 0., 3000.03517301]
+         [ 0., 3000.03479427]
+         [ 3000.03694965, 0.]
+         [ 3000.03852017,-2.91328000]
+         [ 3000.03887275, 0.]
+         [ .8,  3000.03678427]]
+ '''
     q_test(Q)
