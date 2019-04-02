@@ -90,12 +90,6 @@ def dqn(n_episodes=2000,
         if i_ep % 100 == 0:
             print('\rEpisode {}\tAverage Score: {:.2f}'.format(
                 i_ep, np.mean(scores_window)))
-        # if np.mean(scores_window) >= 200.0:
-        #     print(
-        #         '\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'
-        #         .format(i_ep-100, np.mean(scores_window)))
-        #     torch.save(agent.local_network.state_dict(), 'checkpoint.pth')
-        #     break
     torch.save(agent.local_network.state_dict(), 'checkpoint.pth')
     return scores
 
@@ -115,7 +109,7 @@ agent.local_network.load_state_dict(torch.load('checkpoint.pth'))
 
 for i in range(3):
     state = env.reset()
-    for j in range(10000000):
+    for j in range(100000000000):
         env.render()
         action = agent.act(np.array(state[0]))
         state, reward, done, _ = env.step(action)
