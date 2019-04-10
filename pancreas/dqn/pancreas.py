@@ -6,20 +6,18 @@ import torch
 import numpy as np
 from collections import deque
 import matplotlib.pyplot as plt
+from simglucose.analysis.risk import risk_index
 from agent import Agent
+import sys
 
 
 def custom_reward(BG_last_hour):
-    if BG_last_hour[-1] > 150:
-        return 40
-    elif BG_last_hour[-1] > 200:
-        return 70
-    elif BG_last_hour[-1] < 75:
-        return 5
-    elif BG_last_hour[-1] < 35:
-        return 20
+    if len(BG_last_hour) < 2:
+        return 0
     else:
-        return -10
+        _, _, risk_current = risk_index([BG_last_hour[-1]], 1)
+        _, _, risk_prev = risk_index([BG_last_hour[-2]], 1)
+        return risk_prev - risk_current
 
 
 register(
@@ -94,26 +92,30 @@ def dqn(n_episodes=2000,
     return scores
 
 
-scores = dqn(2000, 100000000000, 10.0, 0.01, 0.95)
+if __name__ == '__main__':
+    train = sys.argv[1]
+    if train:
+        scores = dqn(2000, 100000000000, 10.0, 0.01, 0.95)
 
-# plot the scores
-fig = plt.figure()
-ax = fig.add_subplot(111)
-plt.plot(np.arange(len(scores)), scores)
-plt.ylabel('Score')
-plt.xlabel('Episode #')
-plt.show()
+        # plot the scores
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        plt.plot(np.arange(len(scores)), scores)
+        plt.ylabel('Score')
+        plt.xlabel('Episode #')
+        plt.show()
 
-# load the weights from file
-agent.local_network.load_state_dict(torch.load('checkpoint.pth'))
+    else:
+        # load the weights from file
+        agent.local_network.load_state_dict(torch.load('checkpoint.pth'))
 
-for i in range(3):
-    state = env.reset()
-    for j in range(100000000000):
-        env.render()
-        action = agent.act(np.array(state[0]))
-        state, reward, done, _ = env.step(action)
-        if done:
-            break
+        for i in range(3):
+            state = env.reset()
+            for j in range(100000000000):
+                env.render()
+                action = agent.act(np.array(state[0]))
+                state, reward, done, _ = env.step(action)
+                if done:
+                    break
 
-env.close()
+        env.close()
